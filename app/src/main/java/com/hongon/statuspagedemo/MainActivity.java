@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.hongon.statuspagedemo.DataModel.Datagram;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,24 +24,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initial();
+        List<CardBean> mdata = new ArrayList<>();
+        mdata.add(BatteryCard);
+        mdata.add(PVCard);
+        //mdata.add(UtilityCard);
+
         rec = findViewById(R.id.activity_main_recycleView);
         rec.setLayoutManager(new LinearLayoutManager(this));
-        rec.setAdapter(new CardAdapter(mTitle,mdata));
+        rec.setAdapter(new CardAdapter(mdata));
+
+        // 尝试添加一个Datagram
+        datagram= new Datagram();
     }
+    Datagram datagram;
     //---
     private List<List<String>> mdata;
     private List<String> mTitle;
     private void initial()
     {
-        mTitle = new ArrayList<>();
-        mdata = new ArrayList<>();
-        for(int i =0;i<3;++i)
-        {
-            mTitle.add("第"+i+"张卡片");
-        }
-        mdata.add(new ArrayList<String>(Arrays.asList("a","b","c")));
-        mdata.add(new ArrayList<String>(Arrays.asList("c","d","e")));
-        mdata.add(new ArrayList<String>(Arrays.asList("a","b","c","d")));
+        initialCard();
+
+
     }
     //--
     RecyclerView rec;
@@ -47,10 +52,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d("Test","Main Activity is Restart.");
-        if(!mdata.isEmpty())
-        {
-            mdata.get(0).add("电池电量");
+
+            BatteryCard.getContent().add(BatteryCard.new CardItemBean("新家的一个属性",""));
+            BatteryCard.getContent().get(0).setName("更改后的item");
             rec.getAdapter().notifyDataSetChanged();
-        }
+
+    }
+    // -- 定义一个数据源
+    CardBean BatteryCard ;
+    CardBean PVCard;
+    CardBean UtilityCard;
+    void initialCard()
+    {
+
+        BatteryCard = new CardBean(getString(R.string.batteryStatus));
+        PVCard = new CardBean(getString(R.string.PVStatus));
+
+        BatteryCard.getContent().add(BatteryCard.new CardItemBean(getString(R.string.batteryAmpere),""));
     }
 }

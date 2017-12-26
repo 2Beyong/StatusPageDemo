@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">StatusPageDemo</string>
+    <!--Status Page Title-->
+    <string name="batteryStatus">电池状态</string>
+    <string name="PVStatus">光伏状态</string>
+    <string name="UtilityStatus">电网运行状态</string>
+    <string name="ifCharge">充电/放电</string>
+    <string name="batteryVolt">电池当前电压</string>
+    <string name="batteryAmpere">电池当前电流</string>
+    <string name="batteryMaxChargeVolt">电池最大充电电压</string>
+    <string name="PV_Volt">光伏电压</string>
+    <string name="PV_Ampere">光伏电流</string>
+    <string name="PV_Power">光伏功率</string>
+    <string name="UtilityVolt">电网电压</string>
+    <string name="UtilityFrequency">电网频率</string>
 </resources>

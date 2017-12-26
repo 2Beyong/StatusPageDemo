@@ -16,12 +16,11 @@ import java.util.List;
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
 
-    List<String> Title;
-    List<List<String>> data;
-    public  CardAdapter(List<String> title ,List<List<String>> data)
+    List<CardBean> data;
+    public  CardAdapter(List<CardBean> data)
     {
         this.data = data;
-        this.Title = title;
+
     }
 
     @Override
@@ -32,15 +31,20 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        holder.title.setText(Title.get(position));
+        holder.title.setText(data.get(position).getTitle());
 
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder.context));
-        holder.recyclerView.setAdapter(new CardItemAdapter(data.get(position)));
+        holder.recyclerView.setAdapter(new CardItemAdapter(data.get(position).getContent()));
+        //设置分割线
+        CardItemDecoration decoration = new CardItemDecoration();
+        decoration.setSize(2);
+        decoration.setColor(0xFFDDDDDD);
+        holder.recyclerView.addItemDecoration(decoration);
     }
 
     @Override
     public int getItemCount() {
-        return Title.size();
+        return data.size();
     }
 
     class  Holder extends RecyclerView.ViewHolder
@@ -57,4 +61,5 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
 
         }
     }
+
 }
