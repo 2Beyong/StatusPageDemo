@@ -119,6 +119,8 @@ public class DataQueryService extends Service{
             ResponseID responseID = new ResponseID(datagram);
             // RespondID -> IDCard 通知Rec更新。
             //不知道行不行
+            // 暂时注释掉
+            /*
             responseID.UpdateCardBean(mainActivity.IDCard);
             mainActivity.runOnUiThread(new Runnable() {
                 @Override
@@ -126,6 +128,7 @@ public class DataQueryService extends Service{
                     mainActivity.getRec().getAdapter().notifyDataSetChanged();
                 }
             });
+            */
 
         }
         catch (SocketTimeoutException ex)
