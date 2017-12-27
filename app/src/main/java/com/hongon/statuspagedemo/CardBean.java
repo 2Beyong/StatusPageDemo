@@ -13,6 +13,12 @@ import java.util.List;
 public class CardBean {
     private String title;
     public List<CardItemBean> content;
+    public CardBean()
+    {
+        this.title = "";
+        content = new ArrayList<>();
+
+    }
     public CardBean(String title)
     {
         this.title = title;
@@ -22,6 +28,10 @@ public class CardBean {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<CardItemBean> getContent() {

@@ -18,10 +18,12 @@ public class CardItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<CardBean.CardItemBean> data;
     class Holder extends RecyclerView.ViewHolder{
         TextView tv ;
+        TextView value;
         public Holder(View view)
         {
             super(view);
             tv = view.findViewById(R.id.card_item_tv);
+            value =view.findViewById(R.id.card_item_value);
         }
     }
     class HolderWithSwitch extends RecyclerView.ViewHolder{
@@ -61,7 +63,7 @@ public class CardItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         if(viewType ==1) {
             ((Holder)holder).tv.setText(data.get(position).getName());
-
+            ((Holder)holder).value.setText(data.get(position).getValue());
         }
     }
 
@@ -72,9 +74,9 @@ public class CardItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if(position%2 == 0)
+        //if(position%2 == 0)
         return 1;
 
-        return 0;
+        //return 0;
     }
 }
