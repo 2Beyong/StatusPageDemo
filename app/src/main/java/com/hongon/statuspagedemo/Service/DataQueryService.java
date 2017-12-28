@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.hongon.statuspagedemo.DataModel.Datagram;
 import com.hongon.statuspagedemo.DataModel.ResponseID;
+import com.hongon.statuspagedemo.DataModel.ResponseRunningData;
 import com.hongon.statuspagedemo.MainActivity;
 
 import java.net.DatagramPacket;
@@ -46,15 +47,11 @@ public class DataQueryService extends Service{
             @Override
             public void run() {
                 UDPTest();
-            }
-        }).start();
-        //执行完后关闭。
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
                 QueryRunningData();
             }
         }).start();
+        //执行完后关闭。
+
         return super.onStartCommand(intent, flags, startId);
 
     }
@@ -99,13 +96,7 @@ public class DataQueryService extends Service{
             ss.setSoTimeout(3000);
             // 设置发送条目
             byte[] mBytes = new byte[]{(byte) 0xaa, (byte) 0x55, (byte) 0xb0, (byte) 0x7F, (byte) 0x01, (byte) 0x02, (byte) 0x00, (byte) 0x02, (byte) 0x31};
-            byte x = 0x00;
-            for(int i=0;i<(mBytes.length-2);++i)
-            {
-                x+=mBytes[i];
-            }
-            x=(byte)(0xFF-x);
-            Log.d("Byte!",Integer.toHexString(x));
+
             DatagramPacket request = new DatagramPacket(mBytes, mBytes.length,host,port );
 
             DatagramPacket response = new DatagramPacket(new byte[1024],1024);
@@ -115,8 +106,12 @@ public class DataQueryService extends Service{
 
             //处理返回消息
             Log.d(tag,"get"+response.getData().toString());
+            //Log.d(tag,"getRespondRunningData"+response.getData().toString());
             Datagram datagram = new Datagram(response);
-            ResponseID responseID = new ResponseID(datagram);
+
+            //调用接口
+            if(onIDReceivedListener!=null)
+            onIDReceivedListener.OnIDReceived(datagram);
             // RespondID -> IDCard 通知Rec更新。
             //不知道行不行
             // 暂时注释掉
@@ -166,21 +161,49 @@ public class DataQueryService extends Service{
             ss.receive(response);
 
             //处理返回消息
-            Log.d(tag,"getRespondRunningData"+response.getData().toString());
 
+            Datagram datagram = new Datagram(response);
+
+
+            if(onRunningDataReceivedListener!=null)
+                onRunningDataReceivedListener.OnRunningDataReceived(datagram);
 
         }
         catch (SocketTimeoutException ex)
         {
             Log.d(tag,"Time out .");
             Log.d(tag,"Try Again .");
-            UDPTest();
+            QueryRunningData();
         }
         catch (Exception ex) {
             ex.printStackTrace();
             Log.d(tag,"get information Failure");
 
         }
+    }
+
+    // 接口
+
+    interface OnIDReceivedListener
+    {
+        void OnIDReceived(Datagram datagram);
+    }
+
+    private  OnIDReceivedListener onIDReceivedListener;
+    public void setOnIDReceivedListener(OnIDReceivedListener onIDReceivedListener)
+    {
+        this.onIDReceivedListener = onIDReceivedListener;
+    }
+
+    interface OnRunningDataReceivedListener
+    {
+        void OnRunningDataReceived(Datagram datagram);
+    }
+
+    private  OnRunningDataReceivedListener onRunningDataReceivedListener;
+    public void setOnRunningDataReceivedListener(OnRunningDataReceivedListener onRunningDataReceivedListener)
+    {
+        this.onRunningDataReceivedListener = onRunningDataReceivedListener;
     }
 
 }

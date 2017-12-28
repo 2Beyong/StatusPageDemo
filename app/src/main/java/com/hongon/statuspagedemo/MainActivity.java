@@ -37,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             dataQueryService = ((DataQueryService.myBinder)iBinder).getService();
-            ((DataQueryService.myBinder)iBinder).setMainActivity(MainActivity.this);
+
+
+            //  add Listener;
+            dataQueryService.setOnIDReceivedListener(statusFragment.updateIDCard);
+            dataQueryService.setOnRunningDataReceivedListener(statusFragment.updateRunningDataCard);
         }
 
         @Override
@@ -51,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initialFragment();
         initalTab();
-
+        BindQueryService();
         Log.d(tag,"Created");
     }
 
     @Override
     protected void onDestroy() {
         // 尝试关闭Service
-
+        UnBindQueryService();
         super.onDestroy();
     }
     // -- Fragment Setting
@@ -70,8 +74,10 @@ public class MainActivity extends AppCompatActivity {
         monitorFragment = new MonitorFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.FragmentViewpage,statusFragment);
+        ft.add(R.id.FragmentViewpage,monitorFragment);
+        ft.add(R.id.FragmentViewpage,statusFragment);
         ft.commit();
+
     }
     private void initalTab()
     {
@@ -86,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
                 {
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.FragmentViewpage,monitorFragment);
+                    ft.hide(statusFragment).show(monitorFragment);
                     ft.commit();
                 }
                 else if(i==1)
                 {
                     FragmentManager fm = getSupportFragmentManager();
                     FragmentTransaction ft = fm.beginTransaction();
-                    ft.replace(R.id.FragmentViewpage,statusFragment);
+                    ft.hide(monitorFragment).show(statusFragment);
                     ft.commit();
                 }
             }
@@ -108,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        tb.getTabAt(1).select();
     }
     //---
     private void BindQueryService()

@@ -95,16 +95,16 @@ public class Datagram {
             ControlCode = T[4];
             FunctionCode= T[5];
             Datalength = T[6];
-            Data = new byte[Datalength];
+            int datalength = Datalength&0xFF;
+            Data = new byte[datalength];
             int offset = 7;
-            int i=0;
-            for(;i<Datalength;++i)
-            {
-                Data[i]=T[i+offset];
-            }
-            checksum[0] =T[i+offset];
-            checksum[1] =T[i+offset+1];
-            Log.d(tag,"Head "+bytesToHexString(Header));
+
+            System.arraycopy(T,7,Data,0,datalength);
+
+            checksum[0] =T[T.length-2];
+            checksum[1] =T[T.length-1];
+            Log.d(tag,"Data :  "+bytesToHexString(T));
+            Log.d(tag,"Data :  "+bytesToHexString(Data));
         }
 
 
