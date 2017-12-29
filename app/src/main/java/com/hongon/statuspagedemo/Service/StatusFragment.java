@@ -38,13 +38,18 @@ public class StatusFragment extends Fragment{
         initialCard();
         List<CardBean> mdata = new ArrayList<>();
         mdata.add(IDCard);
-        mdata.add(BatteryCard);
         mdata.add(PVCard);
+
+        mdata.add(LoadCard);
+        mdata.add(BatteryCard);
+
         mdata.add(UtilityCard);
 
         rec = getView().findViewById(R.id.fragment_recyclerView);
         rec.setLayoutManager(new LinearLayoutManager(getContext()));//不知道行不行
         rec.setAdapter(new CardAdapter(mdata));
+        rec.setNestedScrollingEnabled(false);
+
     }
 
     // -- other member
@@ -58,6 +63,7 @@ public class StatusFragment extends Fragment{
     public CardBean PVCard;
     public CardBean UtilityCard;
     public CardBean IDCard;
+    public CardBean LoadCard;
     void initialCard()
     {
         /* 参考数据
@@ -124,7 +130,7 @@ public class StatusFragment extends Fragment{
         PVCard.getContent().add(PVCard.new CardItemBean("PV1电流",""));
         PVCard.getContent().add(PVCard.new CardItemBean("PV2电流",""));
         //
-        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电压",""));
+
         IDCard =new CardBean();
         IDCard.setTitle("逆变器身份信息");
         IDCard.getContent().add(IDCard.new CardItemBean("版本","0"));
@@ -140,6 +146,12 @@ public class StatusFragment extends Fragment{
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网电流",""));
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网频率",""));
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("FeedPower？",""));
+
+        LoadCard =new CardBean("负载状态");
+        LoadCard.getContent().add(LoadCard.new CardItemBean("负载功率",""));
+        LoadCard.getContent().add(LoadCard.new CardItemBean("负载电压",""));
+        LoadCard.getContent().add(LoadCard.new CardItemBean("负载电流",""));
+
     }
 
     private final String tag ="StatusFragment";
@@ -164,7 +176,28 @@ public class StatusFragment extends Fragment{
         public void OnRunningDataReceived(Datagram datagram) {
             Log.d(tag,"updateIDCard");
             ResponseRunningData d =new ResponseRunningData(datagram);
+
+            // 更新光伏
+            PVCard.getContent().get(0).setValue(d.getPV1Voltage());
+            PVCard.getContent().get(1).setValue(d.getPV2Voltage());
+            PVCard.getContent().get(2).setValue(d.getPV1Current());
+            PVCard.getContent().get(3).setValue(d.getPV2Current());
+            // 更新负载
+            LoadCard.getContent().get(0).setValue(d.getLoadPower());
+            LoadCard.getContent().get(1).setValue(d.getVLoad());
+            LoadCard.getContent().get(2).setValue(d.getiLoad());
+            // 更新电池
+            BatteryCard.getContent().get(0).setValue(d.getVBattery());
+            BatteryCard.getContent().get(1).setValue(d.getCBattery());
+            BatteryCard.getContent().get(2).setValue(d.getIBattery());
+            // 更新电网运行状态
+
             UtilityCard.getContent().get(0).setValue(d.getPhaseL1Voltage());
+            UtilityCard.getContent().get(1).setValue(d.getPhaseL1Current());
+            UtilityCard.getContent().get(2).setValue(d.getPhaseL1Frequency());
+            UtilityCard.getContent().get(3).setValue(d.getTotalFeedEnergytoGrid());
+
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

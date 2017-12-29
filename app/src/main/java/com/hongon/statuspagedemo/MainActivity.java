@@ -10,6 +10,7 @@ import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
             //  add Listener;
             dataQueryService.setOnIDReceivedListener(statusFragment.updateIDCard);
             dataQueryService.setOnRunningDataReceivedListener(statusFragment.updateRunningDataCard);
+
+            //
+            NestedScrollView nv = findViewById(R.id.nestedScollView);
+
         }
 
         @Override

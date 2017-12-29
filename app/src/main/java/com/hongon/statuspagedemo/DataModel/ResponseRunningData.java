@@ -61,8 +61,28 @@ public class ResponseRunningData {
 
     private String TotalFeedEnergytoGrid;// 0x12 , 低0x13
 
-    private String TotalFeedingHours; // 0x14 0x15
+    private String TotalFeedingHours; // 0x14
+    //
 
+    public String getWorkMode() {
+        return WorkMode;
+    }
+
+    public String getTemperature() {
+        return Temperature;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
+    }
+
+    public String getTotalFeedEnergytoGrid() {
+        return TotalFeedEnergytoGrid;
+    }
+
+    public String getTotalFeedingHours() {
+        return TotalFeedingHours;
+    }
     //  电池
 
     private String VBattery;    //0x21
@@ -85,6 +105,18 @@ public class ResponseRunningData {
     private String LoadPower;   //0x27
     private String VLoad;       //0x2C
     private String iLoad;       //0x2B
+
+    public String getVLoad() {
+        return VLoad;
+    }
+
+    public String getiLoad() {
+        return iLoad;
+    }
+
+    public String getLoadPower() {
+        return LoadPower;
+    }
 
     // constructor
     public ResponseRunningData(Datagram d)
