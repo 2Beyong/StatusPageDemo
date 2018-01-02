@@ -1,4 +1,4 @@
-package com.hongon.statuspagedemo.Service;
+package com.hongon.statuspagedemo;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +16,7 @@ import com.hongon.statuspagedemo.DataModel.Datagram;
 import com.hongon.statuspagedemo.DataModel.ResponseID;
 import com.hongon.statuspagedemo.DataModel.ResponseRunningData;
 import com.hongon.statuspagedemo.R;
+import com.hongon.statuspagedemo.Service.DataQueryService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -21,8 +21,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name"
-                ></android.support.v7.widget.Toolbar>
+                app:title="@string/app_name"></android.support.v7.widget.Toolbar>
 
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -56,7 +55,7 @@
         <FrameLayout
             android:id="@+id/FragmentViewpage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
         </FrameLayout>
 

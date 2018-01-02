@@ -190,7 +190,7 @@ public class DataQueryService extends Service{
 
     // 接口
 
-    interface OnIDReceivedListener
+    public interface OnIDReceivedListener
     {
         void OnIDReceived(Datagram datagram);
     }
@@ -201,7 +201,7 @@ public class DataQueryService extends Service{
         this.onIDReceivedListener = onIDReceivedListener;
     }
 
-    interface OnRunningDataReceivedListener
+    public interface OnRunningDataReceivedListener
     {
         void OnRunningDataReceived(Datagram datagram);
     }

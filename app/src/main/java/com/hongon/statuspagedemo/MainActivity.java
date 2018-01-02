@@ -1,11 +1,9 @@
 package com.hongon.statuspagedemo;
 
-import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -13,22 +11,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.hongon.statuspagedemo.DataModel.Datagram;
 import com.hongon.statuspagedemo.Service.DataQueryService;
-import com.hongon.statuspagedemo.Service.MonitorFragment;
-import com.hongon.statuspagedemo.Service.StatusFragment;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     final String  tag ="MainActivity";
