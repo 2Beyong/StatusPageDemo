@@ -5,6 +5,7 @@ import android.util.Log;
 import com.hongon.statuspagedemo.CardBean;
 
 import java.lang.reflect.Array;
+import java.util.Locale;
 
 /**
  * Created by CoCO on 2017/12/27.
@@ -48,7 +49,7 @@ public class ResponseID {
 
         t = new byte[4];
         System.arraycopy(data,47,t,0,4);
-        Nom_pv = new String(t);
+        Nom_pv = String.format(Locale.CHINA,"%c%c%c.%cV",t[0],t[1],t[2],t[3]);
 
         t = new byte[12];
         System.arraycopy(data,51,t,0,12);
@@ -73,8 +74,8 @@ public class ResponseID {
             card.getContent().add(x);
             x = card.new CardItemBean("ModelName", ModelName);
             card.getContent().add(x);
-            x = card.new CardItemBean("SecurityKey", SecurityKey);
-            card.getContent().add(x);
+            //x = card.new CardItemBean("SecurityKey", SecurityKey);
+            //card.getContent().add(x);
             x = card.new CardItemBean("SerialNumber;", SerialNumber);
             card.getContent().add(x);
             x = card.new CardItemBean("Nom_pv;", Nom_pv);
@@ -87,11 +88,13 @@ public class ResponseID {
 
             card.getContent().get(0).setValue(version);
             card.getContent().get(1).setValue(ModelName);
-            card.getContent().get(2).setValue(SecurityKey);
-            card.getContent().get(3).setValue(SerialNumber);
-            card.getContent().get(4).setValue(Nom_pv);
-            card.getContent().get(5).setValue(InternalVersion);
+            //card.getContent().get(2).setValue(SecurityKey);
+            card.getContent().get(2).setValue(SerialNumber);
+            card.getContent().get(3).setValue(Nom_pv);
+            card.getContent().get(4).setValue(InternalVersion);
         }
         //UI更新要到其他地方
     }
+
+
 }

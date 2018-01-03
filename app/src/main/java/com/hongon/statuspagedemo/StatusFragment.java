@@ -123,7 +123,7 @@ public class StatusFragment extends Fragment{
         BatteryCard = new CardBean(getString(R.string.batteryStatus));
         BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电压",""));
         BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池容量",""));
-        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电压",""));
+        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电流",""));
         PVCard = new CardBean(getString(R.string.PVStatus));
 
         PVCard.getContent().add(PVCard.new CardItemBean("PV1电压",""));
@@ -136,7 +136,7 @@ public class StatusFragment extends Fragment{
         IDCard.setTitle("逆变器身份信息");
         IDCard.getContent().add(IDCard.new CardItemBean("版本","0"));
         IDCard.getContent().add(IDCard.new CardItemBean("逆变器型号","0"));
-        IDCard.getContent().add(IDCard.new CardItemBean("安全码","0"));
+        //IDCard.getContent().add(IDCard.new CardItemBean("安全码","0"));
         IDCard.getContent().add(IDCard.new CardItemBean("序列号","0"));
         IDCard.getContent().add(IDCard.new CardItemBean("额定PV电压","0"));
         IDCard.getContent().add(IDCard.new CardItemBean("固件版本","0"));

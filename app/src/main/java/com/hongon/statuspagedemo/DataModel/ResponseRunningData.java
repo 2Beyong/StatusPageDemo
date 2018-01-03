@@ -135,7 +135,7 @@ public class ResponseRunningData {
         PhaseL1Voltage = _2byteToFloat(data,8,0.1f)+"V";
         Log.d(tag,"PhaseL1Voltage : "+PhaseL1Voltage);
         PhaseL1Current = _2byteToFloat(data,10,0.1f)+"A";
-        PhaseL1Frequency =_2byteToFloat(data,12,0.01f)+"Hz";
+        PhaseL1Frequency =_2byteToFloat_2f(data,12,0.01f)+"Hz";
         Log.d(tag,"PhaseL1Frequence : "+PhaseL1Frequency);
 
         //
@@ -169,7 +169,7 @@ public class ResponseRunningData {
         Log.d(tag,"IBattery : "+IBattery);
 
         //
-        LoadPower = _2byteToFloat(data,58,0.1f)+"W";
+        LoadPower = _2byteToFloat(data,58,1f)+"W";
         Log.d(tag,"LoadPower : "+LoadPower);
 
         // VLoad
@@ -206,11 +206,40 @@ public class ResponseRunningData {
         int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
 
         float y = x *factor;
+        return String.format(Locale.CHINA,"%.1f",y) ;
+    }
+    private  String _2byteToFloat_2f(byte[] src, int index  ,float factor)
+    {
+        byte[] t =new byte[2];
+        System.arraycopy(src,index,t,0,2);
+        int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
+
+        float y = x *factor;
         return String.format(Locale.CHINA,"%.2f",y) ;
     }
 
     // factor 是系数
     private  String _4byteToFloat(byte[] src, int indexH ,int indexL  ,float factor)
+    {
+        byte[] h =new byte[2];
+        byte[] l =new byte[2];
+        System.arraycopy(src,indexH,h,0,2);
+        System.arraycopy(src,indexL,l,0,2);
+        int x = l[1]&0x0FF;
+        //Log.d(tag,"x : "+ x);
+        x=x|(l[0]&0x0FF)<<8;
+        //Log.d(tag,"x : "+ x);
+        x=x|(h[1]&0x0FF)<<16;
+        //Log.d(tag,"x : "+ x);
+
+        x=x|(h[0]&0x0FF)<<24;
+
+        Log.d(tag,"x : "+ x);
+        float y = x*factor;
+        return  String.format(Locale.CHINA,"%.1f",y) ;
+    }
+
+    private  String _4byteToFloat_2f(byte[] src, int indexH ,int indexL  ,float factor)
     {
         byte[] h =new byte[2];
         byte[] l =new byte[2];

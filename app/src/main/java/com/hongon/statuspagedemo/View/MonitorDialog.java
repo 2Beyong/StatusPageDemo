@@ -5,6 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Display;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.hongon.statuspagedemo.CardBean;
@@ -26,7 +29,18 @@ public class MonitorDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.card_menu);
+        //
+
+        Window window = this.getWindow();
+
+
+        window.setContentView(R.layout.monitordialog_layout);
+        Display d = window.getWindowManager().getDefaultDisplay();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.width = (int)(d.getWidth()*0.8);
+        window.setAttributes(lp);
+
+        //setContentView(R.layout.card_menu);
         textView = findViewById(R.id.card_menu_tv);
         rec = findViewById(R.id.card_menu_recyclerView);
         init();
@@ -35,6 +49,11 @@ public class MonitorDialog extends Dialog {
     //
     private void init()
     {
+        // check
+        if(cardBean == null)
+        {
+            cardBean = new CardBean("空白标题栏");
+        }
         textView.setText(cardBean.getTitle());
         rec.setLayoutManager(new LinearLayoutManager(getContext()));
         rec.setAdapter(new CardItemAdapter(cardBean.getContent()));

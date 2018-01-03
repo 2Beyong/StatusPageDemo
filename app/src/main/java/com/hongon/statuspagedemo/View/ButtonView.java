@@ -1,12 +1,27 @@
 package com.hongon.statuspagedemo.View;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.constraint.solver.widgets.ConstraintTableLayout;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+
 
 import com.hongon.statuspagedemo.R;
 
@@ -45,6 +60,8 @@ public class ButtonView extends View {
     {
         super(context,attr);
         initPaint();
+        initChild();
+
 
     }
 
@@ -57,14 +74,22 @@ public class ButtonView extends View {
        mPaint = new Paint();
        mPaint.setStyle(Paint.Style.STROKE);
        mPaint.setStrokeCap(Paint.Cap.ROUND);
-       mPaint.setStrokeWidth(12f);
+       mPaint.setStrokeWidth(4f);
        mPaint.setAntiAlias(true);
+    }
+
+    private void initChild(){
+        ImageView icon = new ImageView(getContext());
+        //icon;
+        //addView();
+
     }
 
     private void initVectorDraw()
     {
         //x = VectorDrawableCompat.create(,R.drawable.ic_sun);
     }
+
 
     //--- Override
 
@@ -86,6 +111,11 @@ public class ButtonView extends View {
         canvas.translate(mWidth/2,mHeight/2);
 
         // 画边框圆
-        canvas.drawCircle(0,0,(mWidth/2f - 12f),mPaint);
+        canvas.drawCircle(0,0,(mWidth/2f - 4f),mPaint);
+
+        //canvas.drawRect(0,0,48,48,mPaint);
+
+        VectorDrawableCompat x = VectorDrawableCompat.create(this.getContext().getResources(),R.drawable.ic_sun,null);
+        x.draw(canvas);
     }
 }
