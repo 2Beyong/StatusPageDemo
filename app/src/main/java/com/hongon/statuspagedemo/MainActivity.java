@@ -4,14 +4,22 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
 
 import com.hongon.statuspagedemo.Service.DataQueryService;
 
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initialToolbar();
         initialFragment();
         initalTab();
         BindQueryService();
@@ -50,8 +59,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        Log.e(tag,"OnStop");
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         // 尝试关闭Service
+        Log.e(tag,"OnDestroy");
         UnBindQueryService();
         super.onDestroy();
     }
@@ -123,8 +139,38 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private void initialToolbar()
+    {
+        Toolbar toolbar =findViewById(R.id.main_toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("监控页面");
+
+    }
+    //
 
 
+
+    //初始化菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_activity_toolbar,menu);
+        return  true;
+    }
+    //处理菜单选中项
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_wifiConfig:
+                // do something
+                CallWifiConfigActivity();
+                break;
+            default:break;
+        }
+        return  true;
+    }
 
     @Override
     protected void onRestart() {
@@ -133,4 +179,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // --- 召唤Wifi配置界面 ---
+    private  void CallWifiConfigActivity()
+    {
+        Intent intent = new Intent(MainActivity.this, WifiConfigActivity.class);
+        startActivity(intent);
+
+    }
 }
