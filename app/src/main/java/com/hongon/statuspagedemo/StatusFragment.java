@@ -45,6 +45,7 @@ public class StatusFragment extends Fragment{
         mdata.add(BatteryCard);
 
         mdata.add(UtilityCard);
+        mdata.add(OtherCard);
 
         rec = getView().findViewById(R.id.fragment_recyclerView);
         rec.setLayoutManager(new LinearLayoutManager(getContext()));//不知道行不行
@@ -65,6 +66,7 @@ public class StatusFragment extends Fragment{
     public CardBean UtilityCard;
     public CardBean IDCard;
     public CardBean LoadCard;
+    public CardBean OtherCard;
     void initialCard()
     {
         /* 参考数据
@@ -152,6 +154,13 @@ public class StatusFragment extends Fragment{
         LoadCard.getContent().add(LoadCard.new CardItemBean("负载功率",""));
         LoadCard.getContent().add(LoadCard.new CardItemBean("负载电压",""));
         LoadCard.getContent().add(LoadCard.new CardItemBean("负载电流",""));
+        OtherCard = new CardBean("其它状态");
+        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总量",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总时间",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏上网总时间",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("工作状态",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("运行温度",""));
+
 
     }
 
@@ -198,6 +207,12 @@ public class StatusFragment extends Fragment{
             UtilityCard.getContent().get(2).setValue(d.getPhaseL1Frequency());
             UtilityCard.getContent().get(3).setValue(d.getTotalFeedEnergytoGrid());
 
+            // 更新其他
+            OtherCard.getContent().get(0).setValue(d.getTotalPVEnery());
+            OtherCard.getContent().get(1).setValue(d.getTotalFeedingHours());
+            OtherCard.getContent().get(2).setValue(d.getTotalFeedEnergytoGrid());
+            OtherCard.getContent().get(3).setValue(d.getWorkMode());
+            OtherCard.getContent().get(4).setValue(d.getTemperature());
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

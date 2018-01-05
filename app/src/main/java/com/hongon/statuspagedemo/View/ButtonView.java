@@ -74,7 +74,7 @@ public class ButtonView extends View {
        mPaint = new Paint();
        mPaint.setStyle(Paint.Style.STROKE);
        mPaint.setStrokeCap(Paint.Cap.ROUND);
-       mPaint.setStrokeWidth(4f);
+       mPaint.setStrokeWidth(3f);
        mPaint.setAntiAlias(true);
     }
 
@@ -111,7 +111,7 @@ public class ButtonView extends View {
         canvas.translate(mWidth/2,mHeight/2);
 
         // 画边框圆
-        canvas.drawCircle(0,0,(mWidth/2f - 4f),mPaint);
+        canvas.drawCircle(0,0,(mWidth/2f -3f ),mPaint);
 
         //canvas.drawRect(0,0,48,48,mPaint);
 

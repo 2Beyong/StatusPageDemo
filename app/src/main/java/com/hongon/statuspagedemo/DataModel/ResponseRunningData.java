@@ -53,6 +53,16 @@ public class ResponseRunningData {
     private String FeedingPower; // 注意它的高位在0x2f,低位在0x0d
 
     // 综合
+
+
+    public String getFeedingPower() {
+        return FeedingPower;
+    }
+
+    public String getTotalPVEnery() {
+        return TotalPVEnery;
+    }
+
     private String WorkMode; // 查表
 
     private String Temperature; // 0.1为单位 0x0F
@@ -142,7 +152,15 @@ public class ResponseRunningData {
         FeedingPower = _4byteToFloat(data,74,14,1.0f)+"W";
         Log.d(tag,"FeedingPower : "+FeedingPower);
 
+        //
+        TotalPVEnery = _4byteToFloat(data,48,54,0.1f)+"KWh";
+        Log.e(tag," TotalPVEnery :"+TotalPVEnery);
         // 工作模式需要查表 先略过
+        //工作模式只能检测出是不是在发电，有没有故障。
+        byte[] t = new byte[2];
+        System.arraycopy(data,16,t,0,2);
+        WorkMode = d.bytesToHexString(t);
+        Log.e(tag,"Work Mode :"+WorkMode);
 
         Temperature = _2byteToFloat(data,18,0.1f)+"°C";
         Log.d(tag,"Temperature : "+Temperature);
@@ -161,7 +179,7 @@ public class ResponseRunningData {
         Log.d(tag,"VBattery : "+VBattery);
 
         //
-        CBattery = _2byteToFloat(data,50,0.1f)+"%";
+        CBattery = _2byteToFloat(data,50,1f)+"%";
         Log.d(tag,"CBattery : "+CBattery);
 
         //
@@ -180,8 +198,7 @@ public class ResponseRunningData {
         iLoad = _2byteToFloat(data,70,0.1f)+"A";
         Log.d(tag,"iLoad : "+iLoad);
 
-        //
-        Log.d(tag,"text data 74 : "+d.bytesToHexString(new byte[]{data[74]}));
+
     }
 
     //  check
@@ -204,7 +221,9 @@ public class ResponseRunningData {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
         int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
-
+        //这里强制将所有换成负数
+        if(x>32768)
+            x=-x;
         float y = x *factor;
         return String.format(Locale.CHINA,"%.1f",y) ;
     }

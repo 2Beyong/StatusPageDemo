@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
             //  add Listener;
             dataQueryService.setOnIDReceivedListener(statusFragment.updateIDCard);
-            dataQueryService.setOnRunningDataReceivedListener(statusFragment.updateRunningDataCard);
-
+            dataQueryService.addOnRunningDataReceivedListener(statusFragment.updateRunningDataCard);
+            dataQueryService.addOnRunningDataReceivedListener(monitorFragment);
             //
             NestedScrollView nv = findViewById(R.id.nestedScollView);
 

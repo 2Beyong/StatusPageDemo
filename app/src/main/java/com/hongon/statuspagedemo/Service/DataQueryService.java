@@ -25,6 +25,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeoutException;
 
 /**
@@ -171,8 +173,10 @@ public class DataQueryService extends Service{
             Datagram datagram = new Datagram(response);
 
 
-            if(onRunningDataReceivedListener!=null)
-                onRunningDataReceivedListener.OnRunningDataReceived(datagram);
+            if(onRunningDataReceivedListener.size()!=0)
+                for(int i =0;i<onRunningDataReceivedListener.size();++i){
+                    onRunningDataReceivedListener.get(i).OnRunningDataReceived(datagram);
+                }
 
         }
         catch (SocketTimeoutException ex)
@@ -206,10 +210,10 @@ public class DataQueryService extends Service{
         void OnRunningDataReceived(Datagram datagram);
     }
 
-    private  OnRunningDataReceivedListener onRunningDataReceivedListener;
-    public void setOnRunningDataReceivedListener(OnRunningDataReceivedListener onRunningDataReceivedListener)
+    private List<OnRunningDataReceivedListener> onRunningDataReceivedListener = new ArrayList<>();
+    public void addOnRunningDataReceivedListener(OnRunningDataReceivedListener onRunningDataReceivedListener)
     {
-        this.onRunningDataReceivedListener = onRunningDataReceivedListener;
+        this.onRunningDataReceivedListener.add(onRunningDataReceivedListener);
     }
 
     // 网络信息处理
