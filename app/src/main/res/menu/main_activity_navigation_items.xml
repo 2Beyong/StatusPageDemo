@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:title="本地系统实时状态"
+    android:id="@+id/navi_menu_item_Monitor"
+    android:icon="@drawable/ic_action_name"
+    ></item>
+    <item android:title="本地系统运行数据列表"
+        android:id="@+id/navi_menu_item_DataList"
+        android:icon="@drawable/ic_format_list_numbered_black_24dp"></item>
+    <item android:title="设置"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:id="@+id/navi_menu_item_Setting"></item>
+    <item android:title="配置本地Wifi"
+        android:icon="@drawable/ic_network_check_black_24dp"
+        android:id="@+id/navi_menu_item_WifiConfig"></item>
+</menu>

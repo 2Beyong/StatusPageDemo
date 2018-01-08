@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,88 +13,132 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_white_24dp"
+        app:titleTextColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/textView"
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="32dp"
-        android:text="WIFI名称"
-        app:layout_constraintBottom_toBottomOf="@+id/SSIDEdit"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="密码"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordEdit"
-        app:layout_constraintStart_toStartOf="@+id/textView" />
-
-    <EditText
-        android:id="@+id/SSIDEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Tenda_0DD350"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/wifi_config_toolbar" />
-
-    <EditText
-        android:id="@+id/passwordEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:singleLine="false"
-        android:text="1234567890"
-        app:layout_constraintStart_toStartOf="@+id/SSIDEdit"
-        app:layout_constraintTop_toBottomOf="@+id/SSIDEdit" />
+        app:contentPadding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wifi_config_toolbar">
 
-    <Button
-        android:id="@+id/buttonSure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="确定"
-        app:layout_constraintEnd_toEndOf="@+id/passwordEdit"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEdit" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-    <ImageButton
-        android:id="@+id/btn_ShowWifiList"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="2dp"
-        android:background="@color/cardview_shadow_end_color"
-        app:layout_constraintBottom_toBottomOf="@+id/SSIDEdit"
-        app:layout_constraintEnd_toEndOf="@+id/SSIDEdit"
-        app:srcCompat="@drawable/ic_network_check_black_24dp" />
+            >
 
-    <ImageButton
-        android:id="@+id/btn_passwordVisual"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="2dp"
-        android:background="@color/cardview_shadow_end_color"
-        app:layout_constraintBottom_toBottomOf="@+id/passwordEdit"
-        app:layout_constraintEnd_toEndOf="@+id/passwordEdit"
-        app:srcCompat="@drawable/ic_visibility_off_black_24dp" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="WIFI名称"
+                app:layout_constraintBottom_toBottomOf="@+id/SSIDEdit"
+                app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/buttonClear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="清空"
-        app:layout_constraintStart_toStartOf="@+id/passwordEdit"
-        app:layout_constraintTop_toTopOf="@+id/buttonSure" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="密码"
+                app:layout_constraintBottom_toBottomOf="@+id/passwordEdit"
+                app:layout_constraintStart_toStartOf="@+id/textView" />
+
+            <EditText
+                android:id="@+id/SSIDEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="64dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Tenda_0DD350"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/wifi_config_toolbar" />
+
+            <EditText
+                android:id="@+id/passwordEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:singleLine="false"
+                android:text="1234567890"
+
+                app:layout_constraintStart_toStartOf="@+id/SSIDEdit"
+                app:layout_constraintTop_toBottomOf="@+id/SSIDEdit" />
+
+            <Button
+                android:id="@+id/buttonSure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorAccent"
+                android:elevation="5dp"
+                android:text="确定"
+
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/passwordEdit"
+                app:layout_constraintTop_toBottomOf="@+id/passwordEdit" />
+
+            <ImageButton
+                android:id="@+id/btn_ShowWifiList"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="2dp"
+                android:background="@color/cardview_shadow_end_color"
+                app:layout_constraintBottom_toBottomOf="@+id/SSIDEdit"
+                app:layout_constraintEnd_toEndOf="@+id/SSIDEdit"
+                app:srcCompat="@drawable/ic_network_check_black_24dp" />
+
+            <ImageButton
+                android:id="@+id/btn_passwordVisual"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="2dp"
+                android:background="@color/cardview_shadow_end_color"
+                app:layout_constraintBottom_toBottomOf="@+id/passwordEdit"
+                app:layout_constraintEnd_toEndOf="@+id/passwordEdit"
+                app:srcCompat="@drawable/ic_visibility_off_black_24dp" />
+
+            <Button
+                android:id="@+id/buttonClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:elevation="5dp"
+                android:text="清空"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/passwordEdit"
+                app:layout_constraintTop_toTopOf="@+id/buttonSure" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

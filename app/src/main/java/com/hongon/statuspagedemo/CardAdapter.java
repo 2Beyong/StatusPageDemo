@@ -13,6 +13,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,10 +23,14 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
 
     List<CardBean> data;
+    List<CardItemAdapter> adapters;
     public  CardAdapter(List<CardBean> data)
     {
         this.data = data;
-
+        adapters = new ArrayList<>();
+        for(CardBean i:data){
+            adapters.add(new CardItemAdapter(i.getContent()));
+        }
     }
 
     @Override
@@ -39,9 +44,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
     @Override
     public void onBindViewHolder(Holder holder, int position) {
         holder.title.setText(data.get(position).getTitle());
-
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(holder.context));
-        holder.recyclerView.setAdapter(new CardItemAdapter(data.get(position).getContent()));
+        holder.recyclerView.setAdapter(adapters.get(position));
+        //关闭动画
+        holder.recyclerView.setItemAnimator(null);
+
         //设置分割线
         CardItemDecoration decoration = new CardItemDecoration();
         decoration.setSize(2);
@@ -94,18 +101,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.Holder> {
             title =view.findViewById(R.id.card_menu_tv);
             recyclerView = view.findViewById(R.id.card_menu_recyclerView);
             imageButton =view.findViewById(R.id.show_hide_button);
+
         }
     }
 
-    //增加点击事件的监听
-    interface OnTopRightButtonClick {
-        public void OnClick();
+    public void NotifySubRecyclerView(){
+        for(CardItemAdapter adapter:adapters){
+            adapter.notifyDataSetChanged();
+        }
     }
-    private OnTopRightButtonClick onTopRightButtonClick;
 
-    public void setOnTopRightButtonClick(OnTopRightButtonClick onTopRightButtonClick) {
-        this.onTopRightButtonClick = onTopRightButtonClick;
-    }
 
 
 }

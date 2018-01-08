@@ -44,6 +44,7 @@ public class MonitorDialog extends Dialog {
         textView = findViewById(R.id.card_menu_tv);
         rec = findViewById(R.id.card_menu_recyclerView);
         init();
+
     }
 
     //

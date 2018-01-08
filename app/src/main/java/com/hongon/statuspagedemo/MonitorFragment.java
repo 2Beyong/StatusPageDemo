@@ -118,16 +118,26 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
 
         if(!data.getPhaseL1Current().equals("0.0A"))
         {
-            a=BigView.PATH_0_1;
+            //有可能也是反的
+            if(data.getIBattery().startsWith("-"))
+            {
+                a=BigView.PATH_0_1;
+            }
+            else {
+                a=BigView.PATH_1_0;
+            }
         }
-        // 剩下两个就难过了，怎么弄的呢？
-        // 电流是带正负的
-        // 电流为正是放电的
-        // 电流为负是充电的
+        //通过电流是否有负号即可判断流向
+        //为正为充电1-0，为负为放电0-1
         if(!data.getIBattery().equals("0.0A"))
         {
-            //这是放电的。
-            d=BigView.PATH_0_1;
+            if(data.getIBattery().startsWith("-"))
+            {
+                d=BigView.PATH_0_1;
+            }
+            else {
+                d=BigView.PATH_1_0;
+            }
         }
 
         bigView.setFlag(a,b,c,d);

@@ -11,8 +11,8 @@
         android:layout_height="80dp"
 
 
-        android:layout_marginTop="9dp"
-        android:importantForAutofill="auto"
+        android:layout_marginTop="5dp"
+
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintLeft_toLeftOf="@+id/bigView"
@@ -25,12 +25,11 @@
         android:id="@+id/CircleB"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="9dp"
+
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="@+id/bigView"
         app:layout_constraintStart_toStartOf="@+id/bigView"
         app:layout_constraintTop_toTopOf="@+id/bigView" />
 
@@ -38,7 +37,7 @@
         android:id="@+id/CircleC"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintHorizontal_bias="1.0"
@@ -50,7 +49,7 @@
         android:id="@+id/CircleD"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintLeft_toLeftOf="@+id/bigView"
@@ -68,14 +67,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_end="192dp"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/HorizenBaseLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_end="300dp" />
 
     <ImageView
         android:id="@+id/iconSun"
@@ -135,8 +126,8 @@
 
     <com.hongon.statuspagedemo.View.BigView
         android:id="@+id/bigView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="360dp"
+        android:layout_height="360dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="64dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -145,4 +136,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

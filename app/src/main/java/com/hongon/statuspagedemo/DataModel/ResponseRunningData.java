@@ -129,6 +129,9 @@ public class ResponseRunningData {
     }
 
     // constructor
+    public ResponseRunningData(){
+
+    }
     public ResponseRunningData(Datagram d)
     {
         if(isRunningData(d)==false)
@@ -144,7 +147,7 @@ public class ResponseRunningData {
         //
         PhaseL1Voltage = _2byteToFloat(data,8,0.1f)+"V";
         Log.d(tag,"PhaseL1Voltage : "+PhaseL1Voltage);
-        PhaseL1Current = _2byteToFloat(data,10,0.1f)+"A";
+        PhaseL1Current = _2byteToFloat_sign(data,10,0.1f)+"A";
         PhaseL1Frequency =_2byteToFloat_2f(data,12,0.01f)+"Hz";
         Log.d(tag,"PhaseL1Frequence : "+PhaseL1Frequency);
 
@@ -183,7 +186,7 @@ public class ResponseRunningData {
         Log.d(tag,"CBattery : "+CBattery);
 
         //
-        IBattery = _2byteToFloat(data,52,0.1f)+"A";
+        IBattery = _2byteToFloat_sign(data,52,0.1f)+"A";
         Log.d(tag,"IBattery : "+IBattery);
 
         //
@@ -216,14 +219,25 @@ public class ResponseRunningData {
 
     // 2byte to float
     // factor 是系数
-    private  String _2byteToFloat(byte[] src, int index  ,float factor)
+    public   String _2byteToFloat_sign(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
         int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
-        //这里强制将所有换成负数
+        //这16个bit >1000 0000 0000 0000
+        //说明这是一个负数，发的是补码。
+        //所以实际值是65536 - x的负数
         if(x>32768)
-            x=-x;
+            x=-(65536-x);
+        float y = x *factor;
+        return String.format(Locale.CHINA,"%.1f",y) ;
+    }
+    public   String _2byteToFloat(byte[] src, int index  ,float factor)
+    {
+        byte[] t =new byte[2];
+        System.arraycopy(src,index,t,0,2);
+        int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
+
         float y = x *factor;
         return String.format(Locale.CHINA,"%.1f",y) ;
     }

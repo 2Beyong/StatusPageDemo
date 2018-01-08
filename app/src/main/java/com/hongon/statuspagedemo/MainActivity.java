@@ -4,21 +4,22 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 import com.hongon.statuspagedemo.Service.DataQueryService;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         initialToolbar();
         initialFragment();
         initalTab();
+        initNavigation();
         BindQueryService();
         Log.d(tag,"Created");
     }
@@ -76,12 +78,28 @@ public class MainActivity extends AppCompatActivity {
     public MonitorFragment monitorFragment;
     private void  initialFragment()
     {
+
         statusFragment = new StatusFragment();
         monitorFragment = new MonitorFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.FragmentViewpage,monitorFragment);
-        ft.add(R.id.FragmentViewpage,statusFragment);
+        if(fm.findFragmentByTag("MonitorFragment")==null){
+            monitorFragment = new MonitorFragment();
+
+            ft.add(R.id.FragmentViewpage,monitorFragment,"MonitorFragment");
+        }
+        else{
+            monitorFragment =(MonitorFragment) fm.findFragmentByTag("MonitorFragment");
+        }
+        if(fm.findFragmentByTag("StatusFragment")==null){
+            statusFragment = new StatusFragment();
+            ft.add(R.id.FragmentViewpage,statusFragment,"StatusFragment");
+        }
+        else{
+            statusFragment =(StatusFragment) fm.findFragmentByTag("StatusFragment");
+        }
+        //
+
         ft.commit();
 
     }
@@ -145,7 +163,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("监控页面");
-
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
     //
 
@@ -167,6 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 // do something
                 CallWifiConfigActivity();
                 break;
+            case android.R.id.home:
+                // do something
+
+                drawerLayout.openDrawer(Gravity.LEFT);
+                break;
             default:break;
         }
         return  true;
@@ -186,4 +210,41 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    // navigation 设置
+    DrawerLayout drawerLayout;
+    private void initNavigation()
+    {
+        drawerLayout = findViewById(R.id.drawerlayout);
+        NavigationView navigationView=findViewById(R.id.navigationView_main_activity);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                TabLayout tb = findViewById(R.id.tablayout);
+                switch (id)
+                {
+                    case R.id.navi_menu_item_Monitor:
+
+                        tb.getTabAt(0).select();
+                        break;
+                    case R.id.navi_menu_item_DataList:
+                         tb = findViewById(R.id.tablayout);
+                        tb.getTabAt(1).select();
+                        break;
+                    case R.id.navi_menu_item_Setting:
+                        Toast.makeText(MainActivity.this,"暂无配置选项",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.navi_menu_item_WifiConfig:
+                        CallWifiConfigActivity();
+                        break;
+                    default:break;
+                }
+                drawerLayout.closeDrawer(Gravity.LEFT);
+                return true;
+            }
+        });
+    }
+
+
 }
