@@ -217,7 +217,9 @@ public class StatusFragment extends Fragment{
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    rec.getAdapter().notifyDataSetChanged();
+                    CardAdapter adapter =(CardAdapter) rec.getAdapter();
+                    adapter.NotifySubRecyclerView();
+
                 }
             });
 

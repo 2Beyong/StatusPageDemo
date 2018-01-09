@@ -22,9 +22,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hongon.statuspagedemo.R;
+import com.hongon.statuspagedemo.Service.NetStatus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,11 +40,24 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
+ * 配置逆变器的wifi功能
+ *
+ * 首先在该活动创建时检测本机的wifi是否打开，网关是否是10.10.100.253
+ * 将结果打印在日志上作为提示。
+ * 点击确定键后发送Wifi名称与密码，选择的默认加密方式为wpk，所以如果是极路由器是其他的加密方式会有问题。
+ * 目前使用开放的http服务器进行路由器的配置。实际上可以选用UDP发送命令的方式，未来可以改进。
+ * 当接收到返回200 ok 的报文，说明逆变器收到命令，开始进行复位，无论成功与否，都会关闭既有的solarWifi连接。
+ * 因此此时可以提示用户跳转，或者提供转到wifi设置的页面。
  * Created by Admin on 2018/1/3.
  */
 
 public class WifiConfigActivity extends AppCompatActivity {
     final String Tag = "WifiConfigActivity";
+
+    //---
+
+    TextView logView;
+    //---
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,9 +67,11 @@ public class WifiConfigActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Wifi配置界面");
         ActionBar T = getSupportActionBar();
         T.setDisplayHomeAsUpEnabled(true);
-
         //
         initEditText();
+        //
+        initNetStatus();
+
 
 
 
@@ -143,27 +160,12 @@ public class WifiConfigActivity extends AppCompatActivity {
 
     }
 
-    //
-    public List<String> getWifiList()
-    {
-        //不晓得为何一定要挂在应用Context下
-        //说是为了避免内存泄漏
-        WifiManager wm = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        //wm.startScan();
-        List<ScanResult> WifiList = wm.getScanResults();
-        Log.e("getWifiList","WifiListsize:"+WifiList.size());
-        List<String> SSIDlist = new ArrayList<>();
-        for(int i =0;i<WifiList.size();++i)
-        {
-           SSIDlist.add(  WifiList.get(i).SSID);
 
-        }
-        return SSIDlist;
-    }
 
     //
     private void initEditText()
     {
+        logView = findViewById(R.id.LogTextView);
         EditText ssidText = findViewById(R.id.SSIDEdit);
         EditText passWordText = findViewById(R.id.passwordEdit);
         ImageButton showWifiButton = findViewById(R.id.btn_ShowWifiList);
@@ -216,7 +218,7 @@ public class WifiConfigActivity extends AppCompatActivity {
 
                     //Toast.makeText(WifiConfigActivity.this,"Button Pressed. ",Toast.LENGTH_SHORT).show();
                     // item 选项
-                    List<String> itemSSID =getWifiList();
+                    List<String> itemSSID =netStatus.getWifiList();
                     Toast.makeText(WifiConfigActivity.this,"Button Pressed. "+itemSSID.size(),Toast.LENGTH_SHORT).show();
                     String items[] = new String[itemSSID.size()];
                     for (int i = 0; i < itemSSID.size(); ++i) {
@@ -252,4 +254,14 @@ public class WifiConfigActivity extends AppCompatActivity {
         });
     }
 
+    //
+    private NetStatus netStatus ;
+
+    private void initNetStatus(){
+        netStatus=NetStatus.getInstance(this);
+
+        if(!netStatus.getAPaddress().equals("10.10.100.253")){
+            logView.append("未连接至Solar Wifi。请检查网络");
+        }
+    }
 }

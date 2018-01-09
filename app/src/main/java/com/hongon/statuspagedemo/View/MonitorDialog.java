@@ -37,7 +37,7 @@ public class MonitorDialog extends Dialog {
         window.setContentView(R.layout.monitordialog_layout);
         Display d = window.getWindowManager().getDefaultDisplay();
         WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = (int)(d.getWidth()*0.8);
+        lp.width = (int)(d.getWidth()*0.9);
         window.setAttributes(lp);
 
         //setContentView(R.layout.card_menu);
