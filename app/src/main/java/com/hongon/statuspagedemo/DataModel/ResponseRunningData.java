@@ -2,6 +2,8 @@ package com.hongon.statuspagedemo.DataModel;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -16,6 +18,7 @@ public class ResponseRunningData {
     private String PV1Current;  // 0.1为单位 0x02
     private String PV2Current;  // 0.1为单位 0x03
 
+    private String PVPower;
     private String TotalPVEnery; // 高位在0x22 低位在 0x25
     public String getPV1Voltage() {
         return PV1Voltage;
@@ -33,11 +36,12 @@ public class ResponseRunningData {
         return PV2Current;
     }
 
+    public String getPVPower(){return PVPower;}
     // Grid member ( only one phase)
     private String PhaseL1Voltage;     // 0.1为单位 0x04
     private String PhaseL1Current;   // 0.1为单位 0x07
     private String PhaseL1Frequency; // 0.01为单位 0x0A
-
+    private String PhaseL1Power;
     public String getPhaseL1Voltage() {
         return PhaseL1Voltage;
     }
@@ -50,6 +54,7 @@ public class ResponseRunningData {
         return PhaseL1Frequency;
     }
 
+    public String getPhaseL1Power(){return PhaseL1Power;}
     private String FeedingPower; // 注意它的高位在0x2f,低位在0x0d
 
     // 综合
@@ -64,6 +69,7 @@ public class ResponseRunningData {
     }
 
     private String WorkMode; // 查表
+    String[] workModeTable = new String[]{"等待","正在发电","故障","严重故障"};
 
     private String Temperature; // 0.1为单位 0x0F
 
@@ -72,6 +78,8 @@ public class ResponseRunningData {
     private String TotalFeedEnergytoGrid;// 0x12 , 低0x13
 
     private String TotalFeedingHours; // 0x14
+
+
     //
 
     public String getWorkMode() {
@@ -95,6 +103,7 @@ public class ResponseRunningData {
     }
     //  电池
 
+    private String PBattery; // 自己计算
     private String VBattery;    //0x21
     private String CBattery;    // 0x23
     private String IBattery;    //0x24
@@ -111,11 +120,13 @@ public class ResponseRunningData {
         return IBattery;
     }
 
+
     //  负载
+    private String LoadPowerKW;
     private String LoadPower;   //0x27
     private String VLoad;       //0x2C
     private String iLoad;       //0x2B
-
+    public String getPBattery(){return PBattery;}
     public String getVLoad() {
         return VLoad;
     }
@@ -127,6 +138,7 @@ public class ResponseRunningData {
     public String getLoadPower() {
         return LoadPower;
     }
+    public String getLoadPowerKW(){return LoadPowerKW;}
 
     // constructor
     public ResponseRunningData(){
@@ -144,11 +156,19 @@ public class ResponseRunningData {
 
         PV1Current = _2byteToFloat(data,4,0.1f)+"A";
         PV2Current = _2byteToFloat(data,6,0.1f)+"A";
+
+        PVPower = String.format(Locale.getDefault(),"%.3fkw",
+                (_2byte_float(data,0,0.1f)*_2byte_float(data,4,0.1f)
+        +_2byte_float(data,2,0.1f)*_2byte_float(data,6,0.1f))/1000);
         //
         PhaseL1Voltage = _2byteToFloat(data,8,0.1f)+"V";
         Log.d(tag,"PhaseL1Voltage : "+PhaseL1Voltage);
         PhaseL1Current = _2byteToFloat_sign(data,10,0.1f)+"A";
         PhaseL1Frequency =_2byteToFloat_2f(data,12,0.01f)+"Hz";
+
+        PhaseL1Power = String.format(Locale.getDefault(),"%.3fkw",
+                _2byte_float(data,8,0.1f)*_2byte_float_sign(data,10,0.1f)/1000
+                        );
         Log.d(tag,"PhaseL1Frequence : "+PhaseL1Frequency);
 
         //
@@ -162,7 +182,8 @@ public class ResponseRunningData {
         //工作模式只能检测出是不是在发电，有没有故障。
         byte[] t = new byte[2];
         System.arraycopy(data,16,t,0,2);
-        WorkMode = d.bytesToHexString(t);
+        WorkMode = workModeTable[t[1]&0xff];
+
         Log.e(tag,"Work Mode :"+WorkMode);
 
         Temperature = _2byteToFloat(data,18,0.1f)+"°C";
@@ -201,7 +222,10 @@ public class ResponseRunningData {
         iLoad = _2byteToFloat(data,70,0.1f)+"A";
         Log.d(tag,"iLoad : "+iLoad);
 
-
+        //
+        LoadPowerKW = String.format(Locale.getDefault(),"%.3fkw",_2byte_float(data,58,1f)/1000);
+        // 自己计算的电池功率
+        PBattery = String.format(Locale.getDefault(),"%.3f",(_2byte_float(data,46,0.1f)*_2byte_float_sign(data,52,0.1f))/1000) +"kw";
     }
 
     //  check
@@ -219,6 +243,28 @@ public class ResponseRunningData {
 
     // 2byte to float
     // factor 是系数
+    public   float _2byte_float_sign(byte[] src, int index  ,float factor)
+    {
+        byte[] t =new byte[2];
+        System.arraycopy(src,index,t,0,2);
+        int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
+        //这16个bit >1000 0000 0000 0000
+        //说明这是一个负数，发的是补码。
+        //所以实际值是65536 - x的负数
+        if(x>32768)
+            x=-(65536-x);
+        float y = x *factor;
+        return  y;
+    }
+    public   float _2byte_float(byte[] src, int index  ,float factor)
+    {
+        byte[] t =new byte[2];
+        System.arraycopy(src,index,t,0,2);
+        int  x = ((t[0]&0xff)<<8)|(t[1]&0xff);
+
+        float y = x *factor;
+        return  y;
+    }
     public   String _2byteToFloat_sign(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];

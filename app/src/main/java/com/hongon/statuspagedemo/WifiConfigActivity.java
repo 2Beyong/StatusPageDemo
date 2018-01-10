@@ -122,6 +122,12 @@ public class WifiConfigActivity extends AppCompatActivity {
                     if(response.isSuccessful())
                     {
                         Log.e(Tag,"First Respond Get ");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                logView.append("Wifi配置请求已成功发送\n");
+                            }
+                        });
                     }
 
                     MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
@@ -261,7 +267,7 @@ public class WifiConfigActivity extends AppCompatActivity {
         netStatus=NetStatus.getInstance(this);
 
         if(!netStatus.getAPaddress().equals("10.10.100.253")){
-            logView.append("未连接至Solar Wifi。请检查网络");
+            logView.append("未连接至Solar Wifi。请检查网络.\n");
         }
     }
 }

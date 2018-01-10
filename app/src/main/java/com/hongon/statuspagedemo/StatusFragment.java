@@ -148,7 +148,7 @@ public class StatusFragment extends Fragment{
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网电压",""));
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网电流",""));
         UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网频率",""));
-        UtilityCard.getContent().add(UtilityCard.new CardItemBean("FeedPower？",""));
+        //UtilityCard.getContent().add(UtilityCard.new CardItemBean("FeedPower？",""));
 
         LoadCard =new CardBean("负载状态");
         LoadCard.getContent().add(LoadCard.new CardItemBean("负载功率",""));
@@ -157,7 +157,7 @@ public class StatusFragment extends Fragment{
         OtherCard = new CardBean("其它状态");
         OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总量",""));
         OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总时间",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏上网总时间",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏上网总电量",""));
         OtherCard.getContent().add(OtherCard.new CardItemBean("工作状态",""));
         OtherCard.getContent().add(OtherCard.new CardItemBean("运行温度",""));
 
@@ -205,7 +205,7 @@ public class StatusFragment extends Fragment{
             UtilityCard.getContent().get(0).setValue(d.getPhaseL1Voltage());
             UtilityCard.getContent().get(1).setValue(d.getPhaseL1Current());
             UtilityCard.getContent().get(2).setValue(d.getPhaseL1Frequency());
-            UtilityCard.getContent().get(3).setValue(d.getTotalFeedEnergytoGrid());
+            //UtilityCard.getContent().get(3).setValue(d.getTotalFeedEnergytoGrid());
 
             // 更新其他
             OtherCard.getContent().get(0).setValue(d.getTotalPVEnery());

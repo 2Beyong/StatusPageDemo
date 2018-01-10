@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.hongon.statuspagedemo.DataModel.Datagram;
 import com.hongon.statuspagedemo.DataModel.ResponseRunningData;
@@ -141,6 +142,28 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
         }
 
         bigView.setFlag(a,b,c,d);
+
+        //
+        UpdateUI(data);
+    }
+    //
+    private void UpdateUI(ResponseRunningData data){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                TextView t = getView().findViewById(R.id.tv_PV_power);
+                t.setText(data.getPVPower());
+                t = getView().findViewById(R.id.tv_BAT_power);
+                t.setText(data.getPBattery());
+                t = getView().findViewById(R.id.tv_Load_power);
+                t.setText(data.getLoadPowerKW());
+                t = getView().findViewById(R.id.tv_Ultility_power);
+                t.setText(data.getPhaseL1Power());
+
+                t= getView().findViewById(R.id.tv_WorkMode);
+                t.setText("工作模式: "+data.getWorkMode());
+            }
+        });
     }
 }
 
