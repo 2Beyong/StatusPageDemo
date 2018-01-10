@@ -69,7 +69,7 @@ public class ResponseRunningData {
     }
 
     private String WorkMode; // 查表
-    String[] workModeTable = new String[]{"等待","正在发电","故障","严重故障"};
+    private String[] workModeTable = new String[]{"等待","正在发电","故障","严重故障"};
 
     private String Temperature; // 0.1为单位 0x0F
 
@@ -146,7 +146,7 @@ public class ResponseRunningData {
     }
     public ResponseRunningData(Datagram d)
     {
-        if(isRunningData(d)==false)
+        if(!isRunningData(d))
             return;
 
         //
@@ -243,7 +243,7 @@ public class ResponseRunningData {
 
     // 2byte to float
     // factor 是系数
-    public   float _2byte_float_sign(byte[] src, int index  ,float factor)
+    private    float _2byte_float_sign(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
@@ -253,10 +253,10 @@ public class ResponseRunningData {
         //所以实际值是65536 - x的负数
         if(x>32768)
             x=-(65536-x);
-        float y = x *factor;
-        return  y;
+
+        return   x *factor;
     }
-    public   float _2byte_float(byte[] src, int index  ,float factor)
+    private    float _2byte_float(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
@@ -265,7 +265,7 @@ public class ResponseRunningData {
         float y = x *factor;
         return  y;
     }
-    public   String _2byteToFloat_sign(byte[] src, int index  ,float factor)
+    private    String _2byteToFloat_sign(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
@@ -278,7 +278,7 @@ public class ResponseRunningData {
         float y = x *factor;
         return String.format(Locale.CHINA,"%.1f",y) ;
     }
-    public   String _2byteToFloat(byte[] src, int index  ,float factor)
+    private    String _2byteToFloat(byte[] src, int index  ,float factor)
     {
         byte[] t =new byte[2];
         System.arraycopy(src,index,t,0,2);
