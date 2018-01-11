@@ -79,6 +79,8 @@ public class ResponseRunningData {
 
     private String TotalFeedingHours; // 0x14
 
+    private float TotalPower= 0f;
+
 
     //
 
@@ -100,6 +102,9 @@ public class ResponseRunningData {
 
     public String getTotalFeedingHours() {
         return TotalFeedingHours;
+    }
+    public String getTotalPower_str(){
+        return String.format(Locale.getDefault(),"%.1fw",TotalPower);
     }
     //  电池
 
@@ -124,13 +129,13 @@ public class ResponseRunningData {
     //  负载
     private String LoadPowerKW;
     private String LoadPower;   //0x27
-    private String VLoad;       //0x2C
-    private String iLoad;       //0x2B
-    public String getPBattery(){return PBattery;}
     public String getVLoad() {
         return VLoad;
     }
 
+    private String VLoad;       //0x2C
+    private String iLoad;       //0x2B
+    public String getPBattery(){return PBattery;}
     public String getiLoad() {
         return iLoad;
     }
@@ -186,7 +191,7 @@ public class ResponseRunningData {
 
         Log.e(tag,"Work Mode :"+WorkMode);
 
-        Temperature = _2byteToFloat(data,18,0.1f)+"°C";
+        Temperature = _2byteToFloat_sign(data,18,0.1f)+"°C";
         Log.d(tag,"Temperature : "+Temperature);
 
         //
@@ -214,6 +219,8 @@ public class ResponseRunningData {
         LoadPower = _2byteToFloat(data,58,1f)+"W";
         Log.d(tag,"LoadPower : "+LoadPower);
 
+        // totalPower
+        TotalPower =_2byte_float(data,68,1f);
         // VLoad
         VLoad = _2byteToFloat(data,68,0.1f)+"V";
         Log.d(tag,"VLoad : "+VLoad);

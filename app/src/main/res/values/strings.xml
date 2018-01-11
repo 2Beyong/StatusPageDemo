@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">StatusPageDemo</string>
+    <string name="app_name">PhonoCube</string>
     <!--Status Page Title-->
     <string name="batteryStatus">电池状态</string>
     <string name="PVStatus">光伏状态</string>

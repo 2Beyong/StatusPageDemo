@@ -11,10 +11,12 @@
         android:layout_height="80dp"
 
 
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
 
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/bigView"
         app:layout_constraintRight_toRightOf="@+id/bigView"
         app:layout_constraintStart_toStartOf="@+id/bigView"
@@ -26,33 +28,67 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
 
-        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/bigView"
-        app:layout_constraintTop_toTopOf="@+id/bigView" />
+        app:layout_constraintTop_toTopOf="@+id/bigView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <com.hongon.statuspagedemo.View.ButtonView
         android:id="@+id/CircleC"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintRight_toRightOf="@+id/bigView"
         app:layout_constraintStart_toStartOf="@+id/bigView"
-        app:layout_constraintTop_toTopOf="@+id/bigView" />
+        app:layout_constraintTop_toTopOf="@+id/bigView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <com.hongon.statuspagedemo.View.ButtonView
         android:id="@+id/CircleD"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bigView"
+        app:layout_constraintEnd_toEndOf="@+id/bigView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/bigView"
+        app:layout_constraintStart_toStartOf="@+id/bigView"
+        app:layout_constraintTop_toTopOf="@+id/bigView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.hongon.statuspagedemo.View.ButtonView
+        android:id="@+id/CircleE"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+
         app:layout_constraintBottom_toBottomOf="@+id/bigView"
         app:layout_constraintEnd_toEndOf="@+id/bigView"
         app:layout_constraintLeft_toLeftOf="@+id/bigView"
+        app:layout_constraintRight_toRightOf="@+id/bigView"
+        app:layout_constraintStart_toStartOf="@+id/bigView"
+        app:layout_constraintTop_toTopOf="@+id/bigView" />
+
+    <com.hongon.statuspagedemo.View.ButtonView
+        android:id="@+id/CircleF"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+
+
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/bigView"
+        app:layout_constraintEnd_toEndOf="@+id/bigView"
+        app:layout_constraintLeft_toLeftOf="@+id/bigView"
+        app:layout_constraintRight_toRightOf="@+id/bigView"
         app:layout_constraintStart_toStartOf="@+id/bigView"
         app:layout_constraintTop_toTopOf="@+id/bigView"
         app:layout_constraintVertical_bias="1.0" />

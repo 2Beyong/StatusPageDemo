@@ -160,7 +160,8 @@ public class StatusFragment extends Fragment{
         OtherCard.getContent().add(OtherCard.new CardItemBean("光伏上网总电量",""));
         OtherCard.getContent().add(OtherCard.new CardItemBean("工作状态",""));
         OtherCard.getContent().add(OtherCard.new CardItemBean("运行温度",""));
-
+        OtherCard.getContent().add(OtherCard.new CardItemBean("逆变器总功率",""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean("FEEDING POWER",""));
 
     }
 
@@ -213,6 +214,8 @@ public class StatusFragment extends Fragment{
             OtherCard.getContent().get(2).setValue(d.getTotalFeedEnergytoGrid());
             OtherCard.getContent().get(3).setValue(d.getWorkMode());
             OtherCard.getContent().get(4).setValue(d.getTemperature());
+            OtherCard.getContent().get(5).setValue(d.getTotalPower_str());
+            OtherCard.getContent().get(6).setValue(d.getFeedingPower());
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

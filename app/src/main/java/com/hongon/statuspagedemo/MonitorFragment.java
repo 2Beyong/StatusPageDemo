@@ -120,7 +120,7 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
         if(!data.getPhaseL1Current().equals("0.0A"))
         {
             //有可能也是反的
-            if(data.getIBattery().startsWith("-"))
+            if(data.getPhaseL1Current().startsWith("-"))
             {
                 a=BigView.PATH_0_1;
             }
@@ -134,10 +134,10 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
         {
             if(data.getIBattery().startsWith("-"))
             {
-                d=BigView.PATH_0_1;
+                d=BigView.PATH_1_0;
             }
             else {
-                d=BigView.PATH_1_0;
+                d=BigView.PATH_0_1;
             }
         }
 
