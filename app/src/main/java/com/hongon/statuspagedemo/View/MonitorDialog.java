@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Display;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hongon.statuspagedemo.CardBean;
@@ -26,6 +28,7 @@ public class MonitorDialog extends Dialog {
     // 控件
     private TextView textView;
     private RecyclerView rec;
+    private ImageButton imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class MonitorDialog extends Dialog {
         window.setAttributes(lp);
 
         //setContentView(R.layout.card_menu);
+        imageButton =findViewById(R.id.show_hide_button);
         textView = findViewById(R.id.card_menu_tv);
         rec = findViewById(R.id.card_menu_recyclerView);
         init();
@@ -62,6 +66,14 @@ public class MonitorDialog extends Dialog {
         decoration.setSize(2);
         decoration.setColor(0xFFDDDDDD);
         rec.addItemDecoration(decoration);
+
+        imageButton.setImageResource(R.drawable.ic_close_white_24dp);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MonitorDialog.this.cancel();
+            }
+        });
     }
     // constructor
     public MonitorDialog(Context context)

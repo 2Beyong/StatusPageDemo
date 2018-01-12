@@ -57,7 +57,7 @@ public class DataQueryService extends Service{
                 while (isQuerying == true) {
                     QueryRunningData();
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(3000);
                     }
                     catch (Exception ex)
                     {

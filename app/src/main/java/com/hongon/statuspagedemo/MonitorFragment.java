@@ -117,15 +117,15 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
             c=BigView.PATH_1_0;
         }
 
-        if(!data.getPhaseL1Current().equals("0.0A"))
+        if(!data.getFeedingPower().equals("0.000kw"))
         {
             //有可能也是反的
             if(data.getPhaseL1Current().startsWith("-"))
             {
-                a=BigView.PATH_0_1;
+                a=BigView.PATH_0_1;//从外到内
             }
             else {
-                a=BigView.PATH_1_0;
+                a=BigView.PATH_1_0;//从内到外
             }
         }
         //通过电流是否有负号即可判断流向

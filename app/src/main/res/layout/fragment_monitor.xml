@@ -164,6 +164,31 @@
         app:layout_constraintVertical_bias="0.120000005"
         app:srcCompat="@drawable/ic_battery" />
 
+    <ImageView
+        android:id="@+id/iconInverter"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleE"
+        app:layout_constraintEnd_toEndOf="@+id/CircleE"
+        app:layout_constraintStart_toStartOf="@+id/CircleE"
+        app:layout_constraintTop_toTopOf="@+id/CircleE"
+        app:srcCompat="@drawable/ic_inverter" />
+
+    <ImageView
+        android:id="@+id/iconBackup"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/CircleF"
+        app:layout_constraintEnd_toEndOf="@+id/CircleF"
+        app:layout_constraintStart_toStartOf="@+id/CircleF"
+        app:layout_constraintTop_toTopOf="@+id/CircleF"
+        app:layout_constraintVertical_bias="0.120000005"
+        app:srcCompat="@drawable/ic_inverter" />
+
     <com.hongon.statuspagedemo.View.BigView
         android:id="@+id/bigView"
         android:layout_width="360dp"
@@ -217,6 +242,18 @@
         app:layout_constraintEnd_toEndOf="@+id/iconGrid"
         app:layout_constraintStart_toStartOf="@+id/iconGrid"
         app:layout_constraintTop_toBottomOf="@+id/iconGrid" />
+
+    <TextView
+        android:id="@+id/tv_Backup_power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0kw"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/iconBackup"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iconBackup"
+        app:layout_constraintTop_toBottomOf="@+id/iconBackup" />
 
     <TextView
         android:id="@+id/tv_WorkMode"

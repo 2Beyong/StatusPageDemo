@@ -207,14 +207,25 @@ public class BigView extends View {
         canvas.translate(mWidth/2,mHeight/2);
         //canvas.drawCircle(0,0,3/8f*mWidth,mPaint);
         //画中间的线
-        canvas.drawLine(0,-2/8f*mHeight,0,2/8f*mHeight,mPaint);
-        canvas.drawLine(-2/8f*mWidth,0,2/8f*mWidth,0,mPaint);
-        // 画4个大圆
-        canvas.drawCircle(0,-3/8f*mHeight,1/8f*mHeight-2,mPaint);
-        canvas.drawCircle(0,3/8f*mHeight,1/8f*mHeight-2,mPaint);
-        canvas.drawCircle(-3/8f*mWidth,0,1/8f*mHeight-2,mPaint);
-        canvas.drawCircle(3/8f*mWidth,0,1/8f*mHeight-2,mPaint);
 
+        //canvas.drawLine(0,-2/8f*mHeight,0,2/8f*mHeight,mPaint);
+        //canvas.drawLine(-2/8f*mWidth,0,2/8f*mWidth,0,mPaint);
+        // 画4个大圆
+        // 一半的宽高
+
+        float r = mWidth/8;//一般是45dp
+        float w = mWidth/2;
+        float h = mHeight/2;
+        float angle = (float)Math.PI*2/8;
+        canvas.drawCircle(0,0,r,mPaint);// A
+        canvas.drawCircle(-w+r,-h+r,r,mPaint);// B
+        canvas.drawCircle(w-r,-h+r,r,mPaint); // C
+        canvas.drawCircle(w-r,h-r,r,mPaint);    //D
+        canvas.drawCircle(-w+r,h-r,r,mPaint);   // E
+        canvas.drawCircle(0,h-r,r,mPaint); // F
+        //画斜线
+
+        canvas.drawLine((float)Math.cos(angle)*r,(float)(-1*Math.sin(angle))*r,(float)(w-r-Math.cos(angle)*r),(float)((-h+r+Math.sin(angle)*r)),mPaint);
         Paint x = new Paint(mPaint);
         x.setStrokeCap(Paint.Cap.ROUND);
         x.setStrokeWidth(12);

@@ -2,6 +2,7 @@ package com.hongon.statuspagedemo.DataModel;
 
 import android.util.Log;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -55,13 +56,15 @@ public class ResponseRunningData {
     }
 
     public String getPhaseL1Power(){return PhaseL1Power;}
-    private String FeedingPower; // 注意它的高位在0x2f,低位在0x0d
+    private float FeedingPower; // 注意它的高位在0x2f,低位在0x0d
 
     // 综合
 
-
+    public boolean isConntoMeter(){
+        return ConntoMeter;
+    }
     public String getFeedingPower() {
-        return FeedingPower;
+        return String.format("%.3fkw",FeedingPower/1000);
     }
 
     public String getTotalPVEnery() {
@@ -81,6 +84,7 @@ public class ResponseRunningData {
 
     private float TotalPower= 0f;
 
+    private boolean ConntoMeter =false;
 
     //
 
@@ -176,9 +180,11 @@ public class ResponseRunningData {
                         );
         Log.d(tag,"PhaseL1Frequence : "+PhaseL1Frequency);
 
-        //
-        FeedingPower = _4byteToFloat(data,74,14,1.0f)+"W";
+        // 74应该是电表连接状态
+
+        FeedingPower = _2byte_float_sign(data,14,1.0f);
         Log.d(tag,"FeedingPower : "+FeedingPower);
+        ConntoMeter = getIfConntoMeter(data,74);
 
         //
         TotalPVEnery = _4byteToFloat(data,48,54,0.1f)+"KWh";
@@ -220,7 +226,7 @@ public class ResponseRunningData {
         Log.d(tag,"LoadPower : "+LoadPower);
 
         // totalPower
-        TotalPower =_2byte_float(data,68,1f);
+        TotalPower =_2byte_float(data,66,1f);
         // VLoad
         VLoad = _2byteToFloat(data,68,0.1f)+"V";
         Log.d(tag,"VLoad : "+VLoad);
@@ -229,10 +235,10 @@ public class ResponseRunningData {
         iLoad = _2byteToFloat(data,70,0.1f)+"A";
         Log.d(tag,"iLoad : "+iLoad);
 
-        //
+        // 负载功率 kw
         LoadPowerKW = String.format(Locale.getDefault(),"%.3fkw",_2byte_float(data,58,1f)/1000);
-        // 自己计算的电池功率
-        PBattery = String.format(Locale.getDefault(),"%.3f",(_2byte_float(data,46,0.1f)*_2byte_float_sign(data,52,0.1f))/1000) +"kw";
+        // 自己计算的电池功率 kw
+        PBattery = String.format(Locale.getDefault(),"%.3fkw",(_2byte_float(data,46,0.1f)*_2byte_float_sign(data,52,0.1f))/1000) ;
     }
 
     //  check
@@ -343,5 +349,17 @@ public class ResponseRunningData {
         Log.d(tag,"x : "+ x);
         float y = x*factor;
         return  String.format(Locale.CHINA,"%.2f",y) ;
+    }
+
+    //查询电表连接状态
+    private  boolean getIfConntoMeter(byte[] data,int index){
+        byte[] t =new byte[2];
+        System.arraycopy(data,index,t,0,2);
+        if(t[0] == 1){
+            return  false;
+        }
+        else{
+            return true;
+        }
     }
 }
