@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">PhonoCube</string>
+    <!--Main -->
+    <string name="monitor_page_title">Monitor</string>
+    <string name="navigationview_head_title">SUMEC</string>
+    <string name="graphic_fragment">Graphic</string>
+    <string name="list_fragment">List</string>
+    <string name="setting">Setting</string>
+    <string name="wifi_config">WIFI Configuration</string>
+    <string name="language_setting">Language Setting</string>
+
+    <!--Status Page -->
+    <string name="pv_status_title">PV Status</string>
+    <string name="pv1_voltage">PV1 voltage</string>
+    <string name="pv2_voltage">PV2 voltage</string>
+    <string name="pv1_current">PV1 current</string>
+    <string name="pv2_current">PV2 current</string>
+
+    <string name="load_status_title">Load Status</string>
+    <string name="load_power">Load power</string>
+    <string name="load_voltage">Load voltage</string>
+    <string name="load_current">Load current</string>
+
+    <string name="battery_status_title">Battery Status</string>
+    <string name="battery_voltage">Battery voltage</string>
+    <string name="battery_current">Battery current</string>
+    <string name="battery_capacity">Battery capacity</string>
+
+    <string name="utility_status_title">Utility Status</string>
+    <string name="utility_voltage">Utility voltage</string>
+    <string name="utility_current">Utility current</string>
+    <string name="utility_frequency">Utility frequency</string>
+    <string name="utility_feeding_power">Utility feeding power</string>
+
+    <string name="other_status_title">General</string>
+    <string name="other_total_inverter">Total inverter energy</string>
+    <string name="other_total_feeding_hour">Total feeding hour</string>
+    <string name="other_total_feeding_energy">Total feeding energy</string>
+    <string name="other_working_mode">Working mode</string>
+    <string name="other_working_temperature">Working Temperature</string>
+    <string name="other_working_inverter_power">Inverter power</string>
+
+
+    <string name="InverterInfoList">Inverter</string>
+    <string name="Inverter_Version">Version </string>
+    <string name="Inverter_Model">Model</string>
+    <string name="Serial_Number">Serial Number</string>
+    <string name="Inverter_PV_Rated_Voltage">Rated_Voltage</string>
+    <string name="Inverter_ChipVer">Chip Version</string>
+
+    <!--Monitor Page-->
+    <string name="working_mode_waiting">Waiting</string>
+    <string name="working_mode_normal">Normal</string>
+    <string name="working_mode_error">Error</string>
+    <string name="working_mode_fatal_error">Fatal Error</string>
+
+    <!--Wifi Config page-->
+
+    <string name="wifi_Name">WIFI Name</string>
+    <string name="wifi_password">Password</string>
+    <string name="wifi_list">Active WIFI</string>
+    <string name="wifi_btn_clear">Clear</string>
+    <string name="wifi_btn_submit">Submit</string>
+    <string name="wifi_status_Not_Connect">Not connect to Solar Wifi.Please check the network and try again.</string>
+    <string name="wifi_status_Submit_Success">Submit success.Please switch Network and restart this application.</string>
+</resources>

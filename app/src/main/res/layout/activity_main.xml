@@ -40,16 +40,15 @@ android:layout_height="match_parent">
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabitem_1"
-
+                    android:text="@string/graphic_fragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="实况" />
+                    android:layout_height="wrap_content" />
 
                 <android.support.design.widget.TabItem
                     android:id="@+id/tabitem_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="列表" />
+                    android:text="@string/list_fragment" />
 
             </android.support.design.widget.TabLayout>
         </android.support.design.widget.AppBarLayout>

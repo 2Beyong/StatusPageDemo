@@ -1,8 +1,12 @@
 package com.hongon.statuspagedemo;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,6 +19,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -23,6 +28,8 @@ import android.widget.Toast;
 
 
 import com.hongon.statuspagedemo.Service.DataQueryService;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     final String  tag ="MainActivity";
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setLanguage();
         setContentView(R.layout.activity_main);
         initialToolbar();
         initialFragment();
@@ -162,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar =findViewById(R.id.main_toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("监控页面");
+        getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -233,10 +241,13 @@ public class MainActivity extends AppCompatActivity {
                         tb.getTabAt(1).select();
                         break;
                     case R.id.navi_menu_item_Setting:
-                        Toast.makeText(MainActivity.this,"暂无配置选项",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"TO DO",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.navi_menu_item_WifiConfig:
                         CallWifiConfigActivity();
+                        break;
+                    case R.id.navi_menu_item_Language:
+                        //LanguageSetting();
                         break;
                     default:break;
                 }
@@ -246,5 +257,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // language Setting
+    protected void selectLanguage(String language) {
+        //设置语言类型
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        switch (language) {
+            case "en":
+                configuration.locale = Locale.ENGLISH;
+                break;
+            case "zh":
+                configuration.locale = Locale.SIMPLIFIED_CHINESE;
+                break;
+            default:
+                configuration.locale = Locale.getDefault();
+                break;
+        }
+        resources.updateConfiguration(configuration, displayMetrics);
+
+        //保存设置语言的类型
+        SharedPreferences sharedPreferences =getSharedPreferences("preference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putString("language_Key",language);
+
+        editor.commit();
+    }
+    // onCreate时调用
+    private void setLanguage(){
+        SharedPreferences sharedPreferences =getSharedPreferences("preference", Context.MODE_PRIVATE);
+        String str =sharedPreferences.getString("language_Key","cn");
+        selectLanguage(str);
+    }
 
 }

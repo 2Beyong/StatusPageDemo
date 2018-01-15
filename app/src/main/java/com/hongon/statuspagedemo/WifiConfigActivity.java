@@ -64,7 +64,7 @@ public class WifiConfigActivity extends AppCompatActivity {
         setContentView(R.layout.wifi_config_layout);
         Toolbar toolbar =  findViewById(R.id.wifi_config_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Wifi配置界面");
+        getSupportActionBar().setTitle(R.string.wifi_config);
         ActionBar T = getSupportActionBar();
         T.setDisplayHomeAsUpEnabled(true);
         //
@@ -125,7 +125,7 @@ public class WifiConfigActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                logView.append("Wifi配置请求已成功发送\n");
+                                logView.append(getString(R.string.wifi_status_Submit_Success)+"\n");
                             }
                         });
                     }
@@ -233,7 +233,7 @@ public class WifiConfigActivity extends AppCompatActivity {
                     //
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(WifiConfigActivity.this);
-                    builder.setTitle("WIFI列表");
+                    builder.setTitle(R.string.wifi_list);
                     builder.setIcon(R.drawable.ic_network_check_black_24dp);
                     builder.setItems(items, new DialogInterface.OnClickListener() {
                         @Override
@@ -267,7 +267,7 @@ public class WifiConfigActivity extends AppCompatActivity {
         netStatus=NetStatus.getInstance(this);
 
         if(!netStatus.getAPaddress().equals("10.10.100.253")){
-            logView.append("未连接至Solar Wifi。请检查网络.\n");
+            logView.append(getString(R.string.wifi_status_Not_Connect)+"\n");
         }
     }
 }

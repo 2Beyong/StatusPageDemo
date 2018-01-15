@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
+import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.support.graphics.drawable.VectorDrawableCompat;
@@ -17,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+
+import com.hongon.statuspagedemo.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,16 +43,29 @@ public class BigView extends View {
     public static final int PATH_0_1=1;
     public static final int PATH_1_0=2;
 
-    private int paflag =PATH_DISABLE;
-    private int pbflag =PATH_DISABLE;
-    private int pcflag =PATH_DISABLE;
-    private int pdflag =PATH_DISABLE;
+    private int paflag =PATH_0_1;
+    private int pbflag =PATH_0_1;
+    private int pcflag =PATH_0_1;
+    private int pdflag =PATH_0_1;
+    private int pcSubFlag =PATH_0_1;
     public void setFlag(int a,int b,int c,int d)
     {
         paflag =a;
         pbflag =b;
         pcflag =c;
         pdflag =d;
+        Log.e("setFlag", "flag: "+a+" "+b+" "+c+" "+d);
+    }
+
+    //
+
+    public void setFlag_5(int a,int b,int c,int d,int e)
+    {
+        paflag =a;
+        pbflag =b;
+        pcflag =c;
+        pdflag =d;
+        pcSubFlag =e;
         Log.e("setFlag", "flag: "+a+" "+b+" "+c+" "+d);
     }
     // size
@@ -66,6 +82,7 @@ public class BigView extends View {
     Path pb;
     Path pc;
     Path pd;
+    Path pcSub;
     PathMeasure pathMeasure;
 
     // Anim
@@ -106,37 +123,51 @@ public class BigView extends View {
     private void initPath()
     {
         //数值是外圈的直径，也是路径的长度
-        float w = 2/8f*mWidth;
-        float h = 2/8f*mHeight;
-
+        float w = mWidth/2;
+        float h = mHeight/2;
+        float r = mWidth/8;
         pathMeasure = new PathMeasure();
         // path A
+        PointF Z = new PointF(0,0);
+        PointF A= new PointF(-w+r,-h+r);
+        PointF B= new PointF(w-r,-h+r);
+        PointF C= new PointF(w-r,h-r);
+        PointF D= new PointF(-w+r,h-r);
+        PointF E= new PointF(0,h-r);
+
+        float angle = (float)Math.PI*2/8;
+        float CosR_45 =(float)Math.cos(angle)*r;
+        float SinR_45 = (float)Math.sin(angle)*r;
 
 
         pa = new Path();
-        RectF ova1 = new RectF(-2*w,-0.5f*h,-w,0.5f*h);
-        pa.addArc(ova1,0,359.9f);
-        pa.lineTo(0,0);
+        pa.moveTo(A.x + CosR_45,A.y +SinR_45);
+        pa.lineTo(Z.x -CosR_45,Z.y-SinR_45);
+
+
+
 
         // pathB
         pb = new Path();
-        RectF ova2 = new RectF(-0.5f*w,-2*h,0.5f*w,-h);
-        pb.addArc(ova2,90f,359.9f);
-        pb.lineTo(0,0);
+        pb.moveTo(B.x -CosR_45,B.y +SinR_45);
+        pb.lineTo(Z.x+CosR_45,Z.y -SinR_45);
+
 
         // pathC
         pc = new Path();
-        RectF ova3 = new RectF(1f*w,-0.5f*h,2f*w,0.5f*h);
-        pc.addArc(ova3,180f,359.9f);
-        pc.lineTo(0,0);
+        pc.moveTo(C.x -CosR_45,C.y -SinR_45);
+        pc.lineTo(Z.x +CosR_45,Z.y+SinR_45);
 
         // pathD
         pd = new Path();
-        RectF ova4 = new RectF(-0.5f*w,1*h,0.5f*w,2*h);
-        pd.addArc(ova4,-90f,359.9f);
-        pd.lineTo(0,0);
 
+        pd.moveTo(D.x +CosR_45,D.y -SinR_45);
+        pd.lineTo(Z.x -CosR_45,Z.y+SinR_45);
 
+        pcSub = new Path();
+        pcSub.moveTo(E.x+CosR_45,E.y-SinR_45);
+        pcSub.lineTo(C.x/2,C.y/2);
+        pcSub.lineTo(Z.x+CosR_45,Z.y+SinR_45);
 
     }
 
@@ -149,7 +180,7 @@ public class BigView extends View {
                 invalidate();
             }
         });
-        valueAnimator.setDuration(3000);
+        valueAnimator.setDuration(2000);
         valueAnimator.setRepeatCount(Animation.INFINITE);
         valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -216,7 +247,7 @@ public class BigView extends View {
         float r = mWidth/8;//一般是45dp
         float w = mWidth/2;
         float h = mHeight/2;
-        float angle = (float)Math.PI*2/8;
+        float angle = (float)Math.PI*2/8; // angle是45度
         canvas.drawCircle(0,0,r,mPaint);// A
         canvas.drawCircle(-w+r,-h+r,r,mPaint);// B
         canvas.drawCircle(w-r,-h+r,r,mPaint); // C
@@ -224,12 +255,22 @@ public class BigView extends View {
         canvas.drawCircle(-w+r,h-r,r,mPaint);   // E
         canvas.drawCircle(0,h-r,r,mPaint); // F
         //画斜线
+        // A
+        canvas.drawLine((float)Math.cos(5*angle)*r,(float)(Math.sin(5*angle))*r,(float)(-w+r+Math.cos(angle)*r),(float)((-h+r+Math.sin(angle)*r)),mPaint);
+        // B
+        canvas.drawLine((float)Math.cos(-angle)*r,(float)(Math.sin(-angle))*r,(float)(w-r-Math.cos(angle)*r),(float)((-h+r+Math.sin(angle)*r)),mPaint);
+        // C
+        canvas.drawLine((float)Math.cos(angle)*r,(float)(Math.sin(angle))*r,(float)(w-r-Math.cos(angle)*r),(float)((h-r-Math.sin(angle)*r)),mPaint);
+        // D
+        canvas.drawLine((float)Math.cos(3*angle)*r,(float)(Math.sin(3*angle))*r,(float)(-w+r+Math.cos(angle)*r),(float)((h-r-Math.sin(angle)*r)),mPaint);
 
-        canvas.drawLine((float)Math.cos(angle)*r,(float)(-1*Math.sin(angle))*r,(float)(w-r-Math.cos(angle)*r),(float)((-h+r+Math.sin(angle)*r)),mPaint);
+        // sub C
+        canvas.drawLine((float)(w-r)/2,(float)(h-r)/2,(float)(0+Math.cos(angle)*r),(float)((h-r-Math.sin(angle)*r)),mPaint);
         Paint x = new Paint(mPaint);
         x.setStrokeCap(Paint.Cap.ROUND);
-        x.setStrokeWidth(12);
+        x.setStrokeWidth(4);
         x.setColor(Color.RED);
+        x.setStyle(Paint.Style.FILL_AND_STROKE);
         //画path
 
         //canvas.drawPath(pa,x);
@@ -237,8 +278,9 @@ public class BigView extends View {
         drawMyPath(canvas,pb,x,pbflag);
         drawMyPath(canvas,pc,x,pcflag);
         drawMyPath(canvas,pd,x,pdflag);
+        drawMyPath(canvas,pcSub,x,pcSubFlag);
     }
-    private void drawMyPath(Canvas canvas,Path pa,Paint x ,int flag)
+    private void drawMyPath(Canvas canvas,Path pa,Paint paint ,int flag)
     {
         if(flag ==PATH_DISABLE)
             return;
@@ -250,16 +292,22 @@ public class BigView extends View {
         if(flag==PATH_1_0)
             v= 1.0f-v;
         float startD = v*l;
-        float stopD =(v+0.1f*series)*l;
-        Path dst = new Path();
-        pathMeasure.getSegment(startD,stopD,dst,true);
-        canvas.drawPath(dst,x);
+
+
+
+        float[] mCurrentPostion = new float[2];
+        float[] mTan=new float[2];
+
+        pathMeasure.getPosTan(startD,mCurrentPostion,mTan);
+        float degrees =(float)(Math.atan2(mTan[1],mTan[0])*180.0/Math.PI);
+
+
+
+
+        canvas.drawCircle(mCurrentPostion[0],mCurrentPostion[1],12,paint);
     }
 
 
     // 这个类控制Path方向以及是否显示
-    class PathControl
-    {
-        public int status;
-    }
+
 }

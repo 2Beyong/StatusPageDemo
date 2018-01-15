@@ -6,7 +6,7 @@
         android:id="@+id/menu_wifiConfig"
 
         android:icon="@drawable/ic_network_check_white_24dp"
-        android:title="Wifi配置"
+        android:title="@string/wifi_config"
         app:showAsAction="ifRoom" />
 
 </menu>

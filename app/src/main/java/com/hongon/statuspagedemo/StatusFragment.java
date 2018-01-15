@@ -122,46 +122,47 @@ public class StatusFragment extends Fragment{
     private String VLoad;       //0x2C
     private String iLoad;       //0x2B
          */
-        BatteryCard = new CardBean(getString(R.string.batteryStatus));
-        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电压",""));
-        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池容量",""));
-        BatteryCard.getContent().add(BatteryCard.new CardItemBean("电池电流",""));
-        PVCard = new CardBean(getString(R.string.PVStatus));
+        BatteryCard = new CardBean(getString(R.string.battery_status_title));
+        BatteryCard.getContent().add(BatteryCard.new CardItemBean(getString(R.string.battery_voltage),""));
+        BatteryCard.getContent().add(BatteryCard.new CardItemBean(getString(R.string.battery_capacity),""));
+        BatteryCard.getContent().add(BatteryCard.new CardItemBean(getString(R.string.battery_current),""));
 
-        PVCard.getContent().add(PVCard.new CardItemBean("PV1电压",""));
-        PVCard.getContent().add(PVCard.new CardItemBean("PV2电压",""));
-        PVCard.getContent().add(PVCard.new CardItemBean("PV1电流",""));
-        PVCard.getContent().add(PVCard.new CardItemBean("PV2电流",""));
+        PVCard = new CardBean(getString(R.string.pv_status_title));
+        PVCard.getContent().add(PVCard.new CardItemBean(getString(R.string.pv1_voltage),""));
+        PVCard.getContent().add(PVCard.new CardItemBean(getString(R.string.pv2_voltage),""));
+        PVCard.getContent().add(PVCard.new CardItemBean(getString(R.string.pv1_current),""));
+        PVCard.getContent().add(PVCard.new CardItemBean(getString(R.string.pv2_current),""));
         //
 
         IDCard =new CardBean();
-        IDCard.setTitle("逆变器身份信息");
-        IDCard.getContent().add(IDCard.new CardItemBean("版本","0"));
-        IDCard.getContent().add(IDCard.new CardItemBean("逆变器型号","0"));
+        IDCard.setTitle(getString(R.string.InverterInfoList));
+        IDCard.getContent().add(IDCard.new CardItemBean(getString(R.string.Inverter_Version),"0"));
+        IDCard.getContent().add(IDCard.new CardItemBean(getString(R.string.Inverter_Model),"0"));
         //IDCard.getContent().add(IDCard.new CardItemBean("安全码","0"));
-        IDCard.getContent().add(IDCard.new CardItemBean("序列号","0"));
-        IDCard.getContent().add(IDCard.new CardItemBean("额定PV电压","0"));
-        IDCard.getContent().add(IDCard.new CardItemBean("固件版本","0"));
+        IDCard.getContent().add(IDCard.new CardItemBean(getString(R.string.Serial_Number),"0"));
+        IDCard.getContent().add(IDCard.new CardItemBean(getString(R.string.Inverter_PV_Rated_Voltage),"0"));
+        IDCard.getContent().add(IDCard.new CardItemBean(getString(R.string.Inverter_ChipVer),"0"));
 
 
-        UtilityCard = new CardBean(getString(R.string.UtilityStatus));
-        UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网电压",""));
-        UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网电流",""));
-        UtilityCard.getContent().add(UtilityCard.new CardItemBean("电网频率",""));
+        UtilityCard = new CardBean(getString(R.string.utility_status_title));
+        UtilityCard.getContent().add(UtilityCard.new CardItemBean(getString(R.string.utility_voltage),""));
+        UtilityCard.getContent().add(UtilityCard.new CardItemBean(getString(R.string.utility_current),""));
+        UtilityCard.getContent().add(UtilityCard.new CardItemBean(getString(R.string.utility_frequency),""));
+        UtilityCard.getContent().add(UtilityCard.new CardItemBean(getString(R.string.utility_feeding_power),""));
         //UtilityCard.getContent().add(UtilityCard.new CardItemBean("FeedPower？",""));
 
-        LoadCard =new CardBean("负载状态");
-        LoadCard.getContent().add(LoadCard.new CardItemBean("负载功率",""));
-        LoadCard.getContent().add(LoadCard.new CardItemBean("负载电压",""));
-        LoadCard.getContent().add(LoadCard.new CardItemBean("负载电流",""));
-        OtherCard = new CardBean("其它状态");
-        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总量",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏发电总时间",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("光伏上网总电量",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("工作状态",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("运行温度",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("逆变器总功率",""));
-        OtherCard.getContent().add(OtherCard.new CardItemBean("FEEDING POWER",""));
+        LoadCard =new CardBean(getString(R.string.load_status_title));
+        LoadCard.getContent().add(LoadCard.new CardItemBean(getString(R.string.load_power),""));
+        LoadCard.getContent().add(LoadCard.new CardItemBean(getString(R.string.load_voltage),""));
+        LoadCard.getContent().add(LoadCard.new CardItemBean(getString(R.string.load_current),""));
+        OtherCard = new CardBean(getString(R.string.other_status_title));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_total_inverter),""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_total_feeding_hour),""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_total_feeding_energy),""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_working_mode),""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_working_temperature),""));
+        OtherCard.getContent().add(OtherCard.new CardItemBean(getString(R.string.other_working_inverter_power),""));
+
 
     }
 
@@ -215,7 +216,7 @@ public class StatusFragment extends Fragment{
             OtherCard.getContent().get(3).setValue(d.getWorkMode());
             OtherCard.getContent().get(4).setValue(d.getTemperature());
             OtherCard.getContent().get(5).setValue(d.getTotalPower_str());
-            OtherCard.getContent().get(6).setValue(d.getFeedingPower());
+
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override

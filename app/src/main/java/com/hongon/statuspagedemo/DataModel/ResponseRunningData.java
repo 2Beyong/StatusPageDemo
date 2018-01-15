@@ -1,6 +1,10 @@
 package com.hongon.statuspagedemo.DataModel;
 
+import android.content.res.Resources;
 import android.util.Log;
+
+import com.hongon.statuspagedemo.AppContext;
+import com.hongon.statuspagedemo.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -72,7 +76,7 @@ public class ResponseRunningData {
     }
 
     private String WorkMode; // 查表
-    private String[] workModeTable = new String[]{"等待","正在发电","故障","严重故障"};
+    private String[] workModeTable = new String[4];
 
     private String Temperature; // 0.1为单位 0x0F
 
@@ -191,6 +195,10 @@ public class ResponseRunningData {
         Log.e(tag," TotalPVEnery :"+TotalPVEnery);
         // 工作模式需要查表 先略过
         //工作模式只能检测出是不是在发电，有没有故障。
+        workModeTable[0] =getResources().getString(R.string.working_mode_waiting);
+        workModeTable[1] =getResources().getString(R.string.working_mode_normal);
+        workModeTable[2] =getResources().getString(R.string.working_mode_error);
+        workModeTable[3] =getResources().getString(R.string.working_mode_fatal_error);
         byte[] t = new byte[2];
         System.arraycopy(data,16,t,0,2);
         WorkMode = workModeTable[t[1]&0xff];
@@ -361,5 +369,10 @@ public class ResponseRunningData {
         else{
             return true;
         }
+    }
+
+    private Resources getResources(){
+        Resources mResource = AppContext.getContext().getResources();
+        return mResource;
     }
 }

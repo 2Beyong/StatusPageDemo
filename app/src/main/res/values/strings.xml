@@ -1,16 +1,66 @@
 <resources>
     <string name="app_name">PhonoCube</string>
-    <!--Status Page Title-->
-    <string name="batteryStatus">电池状态</string>
-    <string name="PVStatus">光伏状态</string>
-    <string name="UtilityStatus">电网运行状态</string>
-    <string name="ifCharge">充电/放电</string>
-    <string name="batteryVolt">电池当前电压</string>
-    <string name="batteryAmpere">电池当前电流</string>
-    <string name="batteryMaxChargeVolt">电池最大充电电压</string>
-    <string name="PV_Volt">光伏电压</string>
-    <string name="PV_Ampere">光伏电流</string>
-    <string name="PV_Power">光伏功率</string>
-    <string name="UtilityVolt">电网电压</string>
-    <string name="UtilityFrequency">电网频率</string>
+
+    <!--Main -->
+    <string name="monitor_page_title">监控页面</string>
+    <string name="navigationview_head_title">苏美达</string>
+    <string name="graphic_fragment">运行图示</string>
+    <string name="list_fragment">状态列表</string>
+    <string name="setting">设置</string>
+    <string name="wifi_config">WIFI配置</string>
+    <string name="language_setting">切换语言</string>
+    <!--Status Page -->
+    <string name="pv_status_title">光伏状态</string>
+    <string name="pv1_voltage">PV1电压</string>
+    <string name="pv2_voltage">PV2电压</string>
+    <string name="pv1_current">PV1电流</string>
+    <string name="pv2_current">PV2电流</string>
+    
+    <string name="load_status_title">负载状态</string>
+    <string name="load_power">负载功率</string>
+    <string name="load_voltage">负载电压</string>
+    <string name="load_current">负载电流</string>
+
+    <string name="battery_status_title">电池状态</string>
+    <string name="battery_voltage">电池电压</string>
+    <string name="battery_current">电池电流</string>
+    <string name="battery_capacity">电池容量</string>
+
+    <string name="utility_status_title">电网状态</string>
+    <string name="utility_voltage">电网电压</string>
+    <string name="utility_current">电网电流</string>
+    <string name="utility_frequency">电网频率</string>
+    <string name="utility_feeding_power">电网功率</string>
+
+    <string name="other_status_title">其它状态</string>
+    <string name="other_total_inverter">总发电量</string>
+    <string name="other_total_feeding_hour">上网时间</string>
+    <string name="other_total_feeding_energy">上网电量</string>
+    <string name="other_working_mode">工作模式</string>
+    <string name="other_working_temperature">运行温度</string>
+    <string name="other_working_inverter_power">逆变器总功率</string>
+
+
+    <string name="InverterInfoList">逆变器身份信息</string>
+    <string name="Inverter_Version">逆变器版本</string>
+    <string name="Inverter_Model">逆变器型号</string>
+    <string name="Serial_Number">序列号</string>
+    <string name="Inverter_PV_Rated_Voltage">额定PV电压</string>
+    <string name="Inverter_ChipVer">固件版本</string>
+
+    <!--Monitor Page-->
+    <string name="working_mode_waiting">等待</string>
+    <string name="working_mode_normal">正常</string>
+    <string name="working_mode_error">故障</string>
+    <string name="working_mode_fatal_error">严重故障</string>
+
+    <!--Wifi Config page-->
+
+    <string name="wifi_Name">WIFI名称</string>
+    <string name="wifi_password">密码</string>
+    <string name="wifi_list">WIFI列表</string>
+    <string name="wifi_btn_clear">清空</string>
+    <string name="wifi_btn_submit">确定</string>
+    <string name="wifi_status_Not_Connect">未连接至Solar Wifi.请检查网络环境后重试。</string>
+    <string name="wifi_status_Submit_Success">逆变器已收到账号密码。请连接到指定网络后，重启本软件进行实时监测。</string>
 </resources>

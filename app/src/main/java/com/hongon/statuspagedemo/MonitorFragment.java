@@ -161,7 +161,7 @@ public class MonitorFragment extends Fragment implements DataQueryService.OnRunn
                 t.setText(data.getPhaseL1Power());
 
                 t= getView().findViewById(R.id.tv_WorkMode);
-                t.setText("工作模式: "+data.getWorkMode());
+                t.setText(getString(R.string.other_working_mode)+" : "+data.getWorkMode());
             }
         });
     }
